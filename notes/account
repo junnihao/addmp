@@ -1,0 +1,8 @@
+Oracle
+109029920@qq.com/LXJ1qazxsw23edc@
+
+mysql
+companypass:o1HrboG,koUH /
+修改密码：alter user 'root'@'localhost' identified by 'bjqt886886'
+
+CREATE DATABASE IF NOT EXISTS RUNOOB DEFAULT CHARSET utf8 COLLATE utf8_general_ci;

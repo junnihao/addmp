@@ -1,0 +1,22 @@
+一、打包及启动
+maven命令行打jar包
+1.在项目目录下：shift+右击选择：在此目录下打开命令窗口
+2.打jar: mvn clean
+mvn compile (可选)
+mvn package
+mvn -Dmaven.test.skip=true package（mvn package不行就换它）
+
+mvn clean install
+
+
+命令行运行jar包
+
+方式一：有绑定主类（有main函数入口）
+java -jar xxx.jar
+方式二：无需绑定主类，可自行指定
+java -cp xxx.jar xxx.main.Class
+
+SpringBoot的jar包如何启动
+https://blog.csdn.net/csdnjiamin/article/details/109559161
+
+

@@ -1,0 +1,6 @@
+1、设置字体
+点击File->Settings
+Editor->File Encodings
+
+2、多模块设置application.properties
+Edit Configurations->环境变量->spring.profiles.active=demo
