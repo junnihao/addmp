@@ -1,0 +1,147 @@
+{
+  "groups": [
+    {
+      "name": "abc.edc",
+      "type": "com.example.demo.properties.PropertiesFromClassPath",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc2",
+      "type": "com.example.demo.properties.PropertiesFromAssignPath",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    }
+  ],
+  "properties": [
+    {
+      "name": "abc.edc.language",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.message-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.message-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.os",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.title-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.title-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.upgrade-from-x-ato-x-b-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.upgrade-from-x-ato-x-b-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.upgrade-from-x-ato-x-h-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.upgrade-from-x-ato-x-h-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.upgrade-from-x-bto-x-h-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.upgrade-from-x-bto-x-h-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc.version",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromClassPath"
+    },
+    {
+      "name": "abc.edc2.language",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.message-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.message-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.os",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.title-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.title-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.upgrade-from-x-ato-x-b-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.upgrade-from-x-ato-x-b-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.upgrade-from-x-ato-x-h-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.upgrade-from-x-ato-x-h-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.upgrade-from-x-bto-x-h-e-n",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.upgrade-from-x-bto-x-h-z-h",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    },
+    {
+      "name": "abc.edc2.version",
+      "type": "java.lang.String",
+      "sourceType": "com.example.demo.properties.PropertiesFromAssignPath"
+    }
+  ],
+  "hints": []
+}
