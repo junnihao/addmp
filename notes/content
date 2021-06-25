@@ -3,4 +3,6 @@
 3、JPA
 4、springboot整合mybatis
 5、声明式事务
+6、restTemplate消费服务
+7、上传文件
 
