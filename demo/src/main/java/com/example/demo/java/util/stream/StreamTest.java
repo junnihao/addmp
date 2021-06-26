@@ -1,4 +1,4 @@
-package com.example.base.java.util.stream;
+package com.example.demo.java.util.stream;
 
 import org.junit.Test;
 
