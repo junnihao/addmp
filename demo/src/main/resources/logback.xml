@@ -2,7 +2,7 @@
 <configuration debug="false">
     <!-- 比如：指定INFO级别，则会输出>=INFO级别的日志    -->
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="F:\\TestProject\\logs"/>
+    <property name="LOG_HOME" value="I:\\logs"/>
     <!-- 定义日志格式  -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%-30.30logger{30}] %msg%n"/>
     <!-- 控制台输出 -->
@@ -39,7 +39,7 @@
         <appender-ref ref="FILE"/>
     </root>-->
     <logger name="org.springframework" level="INFO"/>
-    <logger name="com.example.demo" level="INFO"/>
+    <logger name="com.example.demo.springboot" level="INFO"/>
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
