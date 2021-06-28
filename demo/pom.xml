@@ -42,6 +42,8 @@
                     <!--<include>**/*.properties</include> -->
                     <include>**/application*.properties</include>
                     <include>**/pushMessageByGrade.properties</include>
+                    <include>**/*.html</include>
+                    <include>**/*.xml</include>
                 </includes>
             </resource>
         </resources>
