@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -26,6 +27,7 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 
 
+@EnableCaching
 @EnableConfigurationProperties(StorageProperties.class)
 @EnableScheduling
 @SpringBootApplication
@@ -56,7 +58,7 @@ public class DemoApplication extends AsyncConfigurerSupport {
     }
 
     // 消息队列 开始
-    final static String queueName = "spring-boot";
+    public final static String queueName = "spring-boot";
 
     @Bean
     Queue queue() {

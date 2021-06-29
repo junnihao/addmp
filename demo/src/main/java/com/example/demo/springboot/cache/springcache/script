@@ -1,0 +1,16 @@
+create table demo_book(
+book_title varchar(100),
+book_name varchar(100),
+book_desc varchar(300));
+insert into demo_book values('child','child name 1','') ;
+insert into demo_book values('child','child name 2','') ;
+insert into demo_book values('child','child name 3','') ;
+insert into demo_book values('child','child name 4','') ;
+insert into demo_book values('child','child name 5','') ;
+insert into demo_book values('other','other1','') ;
+insert into demo_book values('other','other2','') ;
+insert into demo_book values('other','other3','') ;
+insert into demo_book values('other','other4','') ;
+insert into demo_book values('other','other5','') ;
+commit ;
+select * from test_book;
