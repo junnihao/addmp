@@ -2,7 +2,7 @@ package com.example.demo.springboot.mybatis;
 
 import com.example.demo.springboot.mybatis.Account;
 
-public interface AccountMapper {
+public interface AccountXmlMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Account record);
