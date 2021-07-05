@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface TransactionAccountMapper {
-    @Update("update account set money = #{money} where id = #{id}")
+    @Update("update demo_account set money = #{money} where id = #{id}")
     int update(@Param("money") double money, @Param("id") int id);
 }

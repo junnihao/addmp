@@ -1,15 +1,16 @@
 package com.example.demo.springboot.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+import javax.persistence.*;
+//@Entity
+@Table(name="DEMO_ACCOUNT")
 public class Account {
     @Id
     @GeneratedValue
     private int id ;
+    @Column
     private String name ;
+    @Column
     private double money;
 
     public double getMoney() {
