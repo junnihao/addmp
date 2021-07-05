@@ -1,17 +1,17 @@
 package com.example.demo.springboot.mybatis;
 
 public class Account {
-    private Short id;
+    private Integer id;
 
     private String name;
 
-    private Short money;
+    private Double money;
 
-    public Short getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Short id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -23,11 +23,11 @@ public class Account {
         this.name = name == null ? null : name.trim();
     }
 
-    public Short getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(Short money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 }
