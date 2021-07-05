@@ -1,7 +1,9 @@
 package com.example.demo.springboot.mybatis;
 
-import com.example.demo.springboot.mybatis.Account;
 
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
 public interface AccountXmlMapper {
     int deleteByPrimaryKey(Integer id);
 

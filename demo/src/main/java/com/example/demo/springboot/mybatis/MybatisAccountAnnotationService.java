@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MybatisAccountService {
+public class MybatisAccountAnnotationService {
     @Autowired
     private AccountAnnotationMapper accountMapper;
 

@@ -12,6 +12,6 @@ import java.util.List;
 @Mapper
 public interface BookRepository {
         @Cacheable("books")
-        @Select("select book_title as title, book_name as name, book_desc as vdesc from test_book where book_title = #{title}")
+        @Select("select book_title as title, book_name as name, book_desc as vdesc from demo_book where book_title = #{title}")
         List<Book> findBookByTitle(@Param("title") String title);
 }

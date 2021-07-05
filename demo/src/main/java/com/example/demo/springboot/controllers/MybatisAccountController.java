@@ -1,7 +1,8 @@
 package com.example.demo.springboot.controllers;
 
 import com.example.demo.springboot.mybatis.Account;
-import com.example.demo.springboot.mybatis.MybatisAccountService;
+import com.example.demo.springboot.mybatis.MybatisAccountAnnotationService;
+import com.example.demo.springboot.mybatis.MybatisAccountXmlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,15 @@ import java.util.List;
 @RequestMapping("/myBatisAccount")
 public class MybatisAccountController {
     @Autowired
-    MybatisAccountService accountService;
+    MybatisAccountAnnotationService accountService;
+
+    @Autowired
+    MybatisAccountXmlService accountXmlService;
+
+    @RequestMapping(value = "/xml/{id}", method = RequestMethod.GET)
+    public Account getAccountByIdFromXml(@PathVariable("id") int id) {
+        return accountXmlService.selectByPrimaryKey(id);
+    }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Account> getAccounts() {
