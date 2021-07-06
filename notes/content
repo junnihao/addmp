@@ -15,6 +15,7 @@
 15、spring cache
 16、Springboot整合RabbitMQ
 17、使用mybatis插件生成文件
+18、AOP
 
 注解内容
 一、properties文件配置：涉及到的注解
@@ -48,6 +49,11 @@
 
 五、声明式事务：涉及到的注解
 @Transactional
+@Aspect
+
+七、上传文件：涉及到的注解
+@ResponseBody
+@RequestBody
 
 
 

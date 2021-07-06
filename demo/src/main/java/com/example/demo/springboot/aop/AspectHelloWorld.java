@@ -1,12 +1,13 @@
 package com.example.demo.springboot.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.SourceLocation;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
@@ -24,6 +25,7 @@ import java.util.Arrays;
 @Order(value = 1)
 // @Component
 @Configuration
+@Slf4j
 public class AspectHelloWorld {
 
     /**
@@ -76,15 +78,15 @@ public class AspectHelloWorld {
         String longString = joinPoint.toLongString();
         String shortString = joinPoint.toShortString();
 
-        System.out.println("【前置通知】");
-        System.out.println("\targs=" + Arrays.asList(args));
-        System.out.println("\tsignature=" + signature);
-        System.out.println("\ttarget=" + target);
-        System.out.println("\taThis=" + aThis);
-        System.out.println("\tstaticPart=" + staticPart);
-        System.out.println("\tsourceLocation=" + sourceLocation);
-        System.out.println("\tlongString=" + longString);
-        System.out.println("\tshortString=" + shortString);
+        log.info("【前置通知】");
+        log.info("\targs=" + Arrays.asList(args));
+        log.info("\tsignature=" + signature);
+        log.info("\ttarget=" + target);
+        log.info("\taThis=" + aThis);
+        log.info("\tstaticPart=" + staticPart);
+        log.info("\tsourceLocation=" + sourceLocation);
+        log.info("\tlongString=" + longString);
+        log.info("\tshortString=" + shortString);
     }
 
     /**
@@ -93,8 +95,8 @@ public class AspectHelloWorld {
      */
     @After(value = "aspectPointcut()")
     public void aspectAfter(JoinPoint joinPoint) {
-        System.out.println("【后置通知】");
-        System.out.println("\tkind=" + joinPoint.getKind());
+        log.info("【后置通知】");
+        log.info("\tkind=" + joinPoint.getKind());
     }
 
     /**
@@ -108,8 +110,8 @@ public class AspectHelloWorld {
      */
     @AfterReturning(pointcut = "aspectPointcut()", returning = "result")
     public void aspectAfterReturning(JoinPoint joinPoint, Object result) {
-        System.out.println("【返回通知】");
-        System.out.println("\t目标方法返回值=" + result);
+        log.info("【返回通知】");
+        log.info("\t目标方法返回值=" + result);
     }
 
     /**
@@ -123,11 +125,11 @@ public class AspectHelloWorld {
     @AfterThrowing(pointcut = "aspectPointcut()", throwing = "ex")
     public void aspectAfterThrowing(JoinPoint jp, Exception ex) {
         String methodName = jp.getSignature().getName();
-        System.out.println("【异常通知】");
+        log.info("【异常通知】");
         if (ex instanceof ArithmeticException) {
-            System.out.println("\t【" + methodName + "】方法算术异常（ArithmeticException）：" + ex.getMessage());
+            log.info("\t【" + methodName + "】方法算术异常（ArithmeticException）：" + ex.getMessage());
         } else {
-            System.out.println("\t【" + methodName + "】方法异常：" + ex.getMessage());
+            log.info("\t【" + methodName + "】方法异常：" + ex.getMessage());
         }
     }
 
