@@ -54,6 +54,12 @@
 七、上传文件：涉及到的注解
 @ResponseBody
 @RequestBody
+@RequestParam
+@PathVariable
+
+八、scheduler：涉及到的注解
+@EnableScheduling
+@Scheduled
 
 
 

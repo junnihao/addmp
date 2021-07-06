@@ -1,23 +1,15 @@
 package com.example.demo;
 
-import com.example.demo.springboot.fileoperate.StorageProperties;
-import com.example.demo.springboot.fileoperate.StorageService;
 import com.example.demo.springboot.rabbitmq.Receiver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
 import java.util.concurrent.Executor;
-
-
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -28,8 +20,6 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 
 
 @EnableCaching
-@EnableConfigurationProperties(StorageProperties.class)
-@EnableScheduling
 @SpringBootApplication
 public class DemoApplication extends AsyncConfigurerSupport {
     private static final Logger log = LoggerFactory.getLogger(DemoApplication.class);
@@ -38,13 +28,6 @@ public class DemoApplication extends AsyncConfigurerSupport {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            storageService.deleteAll();
-            storageService.init();
-        };
-    }
     // 异步方法
     @Override
     public Executor getAsyncExecutor() {

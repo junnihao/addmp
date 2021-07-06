@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 @Controller
-//@RequestMapping("/file")
+@RequestMapping("/file")
 public class FileUploadController {
     private final StorageService storageService;
 
@@ -26,14 +26,15 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-    @GetMapping("/")
+    // @GetMapping("/upload") = @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    @GetMapping("/upload")
     public String listUploadedFiles(Model model) throws IOException {
 
         model.addAttribute("files", storageService
                 .loadAll()
                 .map(path ->
                         MvcUriComponentsBuilder
-                                .fromMethodName(FileUploadController.class, "serveFile", path.getFileName().toString())
+                                .fromMethodName(FileUploadController.class, "downloadFile", path.getFileName().toString())
                                 .build().toString())
                 .collect(Collectors.toList()));
 
@@ -52,7 +53,8 @@ public class FileUploadController {
     @PathVariable("xxx")
     通过 @PathVariable 可以将URL中占位符参数{xxx}绑定到处理器类的方法形参中@PathVariable(“xxx“)
      */
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    //public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
 
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity
@@ -61,7 +63,7 @@ public class FileUploadController {
                 .body(file);
     }
 
-    @PostMapping("/")
+    @PostMapping("/save")
     /*
     @RequestParam：将请求参数绑定到你控制器的方法参数上（是springmvc中接收普通参数的注解）
      */
@@ -72,7 +74,7 @@ public class FileUploadController {
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/";
+        return "redirect:/file/upload";
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)
