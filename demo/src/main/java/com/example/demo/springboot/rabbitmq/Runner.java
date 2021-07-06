@@ -1,6 +1,6 @@
 package com.example.demo.springboot.rabbitmq;
 
-import com.example.demo.DemoApplication;
+import com.example.demo.springboot.config.QueueConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -25,7 +25,7 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Sending message...");
-        rabbitTemplate.convertAndSend(DemoApplication.queueName, "Hello from RabbitMQ!");
+        rabbitTemplate.convertAndSend(QueueConfig.queueName, "Hello from RabbitMQ!");
         receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
         // context.close();
     }
