@@ -9,9 +9,9 @@ public class Account {
     @Id
     @GeneratedValue
     private int id ;
-    @Column
+    @Column(name="name")
     private String name ;
-    @Column
+    @Column(name="money")
     private double money;
 
     public double getMoney() {
