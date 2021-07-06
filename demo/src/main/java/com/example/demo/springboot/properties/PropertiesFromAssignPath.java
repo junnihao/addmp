@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Configuration
 @Component
-@ConfigurationProperties(prefix = "abc.edc2")
 @PropertySource(value = {"file:${config.path}"}, encoding="utf-8")
+@ConfigurationProperties(prefix = "abc.edc2")
 public class PropertiesFromAssignPath {
     private String language ;
     private String os ;

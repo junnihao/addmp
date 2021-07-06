@@ -16,3 +16,15 @@
 16、Springboot整合RabbitMQ
 17、使用mybatis插件生成文件
 
+注解内容
+一、属性涉及到的注解
+@Component
+@ComponentScan
+@Bean
+@Scope
+@Configuration
+@PropertySource
+@ConfigurationProperties
+
+
+
