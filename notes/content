@@ -17,7 +17,7 @@
 17、使用mybatis插件生成文件
 
 注解内容
-一、属性涉及到的注解
+一、properties文件配置：涉及到的注解
 @Component
 @ComponentScan
 @Bean
@@ -25,6 +25,16 @@
 @Configuration
 @PropertySource
 @ConfigurationProperties
+@Value
+@Autowired
+
+@Controller
+@RestController
+@RequestMapping
+
+二、jdbctemplates：涉及到的注解
+@Service
+@Repository
 
 
 
