@@ -42,6 +42,13 @@ public class AspectHelloWorld {
     }
 
     /**
+     * 指定注解
+     */
+    /*@Pointcut("@annotation(com.rest.utils.SysPlatLog)")
+    public void withAnnotationMethods() {
+    }*/
+
+    /**
      * 前置通知：目标方法执行之前执行以下方法体的内容。
      * value：绑定通知的切入点表达式。可以关联切入点声明，也可以直接设置切入点表达式
      * <br/>
