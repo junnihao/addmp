@@ -61,6 +61,36 @@
 @EnableScheduling
 @Scheduled
 
+九、验证表单信息：涉及到的注解
+
+十、
+
+十一、邮件
+
+十二、
+
+十三、异步方法
+@Async
+
+十四、redis
+十五、spring cache
+@Cacheable
+
+
+十六、Springboot整合RabbitMQ
+十七、使用mybatis插件生成文件
+十八、AOP
+@Aspect
+@Pointcut
+@Before
+@After
+@AfterReturning
+@AfterThrowing
+
+
+
+@SpringBootApplication
+
 
 
 
