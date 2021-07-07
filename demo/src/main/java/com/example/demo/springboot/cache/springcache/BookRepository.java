@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 @Mapper
 public interface BookRepository {
-        @Cacheable(cacheNames = "books")
+        @Cacheable(cacheNames = "books",key="#title")
         @Select("select book_title as title, book_name as name, book_desc as vdesc from demo_book where book_title = #{title}")
         List<Book> findBookByTitle(@Param("title") String title);
 }

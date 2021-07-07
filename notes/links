@@ -81,6 +81,16 @@ https://www.cnblogs.com/xifengxiaoma/
 设计模式
 https://www.cnblogs.com/V1haoge/p/6525527.html
 
+spring自带的定时任务功能@EnableScheduling
+https://www.cnblogs.com/domi22/p/9418433.html
+2 详解
+http://tramp.cincout.cn/2017/08/18/spring-task-2017-08-18-spring-boot-enablescheduling-analysis/
+cron表达式：https://www.zhyd.me/article/43
+1.cron是设置定时执行的表达式,如 0 0/5 * * * ?每隔五分钟执行一次
+2.zone表示执行时间的时区
+3.fixedDelay 和fixedDelayString 一个固定延迟时间执行,上个任务完成后,延迟多久执行
+4.fixedRate 和fixedRateString一个固定频率执行,上个任务开始后多长时间后开始执行
+5.initialDelay 和initialDelayString表示一个初始延迟时间,第一次被调用前延迟的时间
 
 
 

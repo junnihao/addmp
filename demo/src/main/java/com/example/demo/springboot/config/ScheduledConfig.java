@@ -9,4 +9,5 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @ComponentScan("com.example.demo.springboot.schedule")
 public class ScheduledConfig {
+    /*也可以将 @Scheduled注释的方法写在这里*/
 }
