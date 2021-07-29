@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/demo/user/")
 public class UserController {
     @PostMapping("/login")
-    public Response login(@RequestParam("userName") String userName,
-                          @RequestParam("userPass") String userPass,
+    public Response login(@RequestParam(value="userName",required = false) String userName,
+                          @RequestParam(value="userPass",required = false) String userPass,
                           HttpSession session) {
         log.info("request parameter is: "+ userName) ;
         log.info("request parameter is: "+ userPass) ;
@@ -31,6 +31,7 @@ public class UserController {
             return Response.no("密码不正确！");
         }*/
         session.setAttribute("user", user);
-        return Response.yes(user);
+        //return Response.yes(user);
+        return Response.no("用户名不存在！");
     }
 }
