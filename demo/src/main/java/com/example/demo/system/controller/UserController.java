@@ -26,32 +26,26 @@ public class UserController {
         log.info("input pass is: "+ loginParameter.getPassword()) ;
         log.info(" Test session parameter status : "+session.getId()) ;
         User user = userService.findUser(loginParameter.getUsername(),loginParameter.getPassword()) ;
-        log.info("find user id is :"+user.getName()+ "  and id is : " + user.getId()) ;
         if (user == null) {
-            return Response.no("用户名不存在！");
+            return Response.no("用户不存在！");
         }
+        log.info("find user id is :"+user.getUserName()+ "  and id is : " + user.getId()) ;
         session.setAttribute("user", user);
         return Response.yes(user);
        //return Response.no("用户名不存在！");
     }
 
-    @PostMapping("/loginbak")
+    /*@PostMapping("/login")
     public Response loginBak(@RequestParam(value="userName",required = false) String userName,
                           @RequestParam(value="userPass",required = false) String userPass,
                           HttpSession session) {
         log.info("request parameter is: "+ userName) ;
         log.info("request parameter is: "+ userPass) ;
-        // User user = userService.findByUserName(userName);
-        // User user = userService.findByUserNameNoMapper(userName);
         User user = new User() ;
         if (user == null) {
             return Response.no("用户名不存在！");
         }
-        /*if (!Objects.equals(user.getUserPass(), userPass)) {
-            return Response.no("密码不正确！");
-        }*/
         session.setAttribute("user", user);
-        //return Response.yes(user);
         return Response.no("用户名不存在！");
-    }
+    }*/
 }

@@ -12,7 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserLoginParameter {
-    /*名字要与前台传进来的参数名字一样*/
+    /*名字要与前台vue传进来的参数名字一样*/
     private String username ;
     private String password ;
 
