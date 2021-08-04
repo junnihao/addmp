@@ -4,3 +4,9 @@ Editor->File Encodings
 
 2、多模块设置application.properties
 Edit Configurations->环境变量->spring.profiles.active=demo
+
+3、新建模块
+右键->New->Module->填写Spring Initializr信息->填写信息Next
+
+4、pom.xml ignore
+file -> Setting进入设置-> Build,Execution,Deployment->Build Tools->Maven->Ignored Files
