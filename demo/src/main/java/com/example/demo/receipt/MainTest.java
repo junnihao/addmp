@@ -23,12 +23,39 @@ public class MainTest {
     public static void main(String[] args) {
         //这里是测试用的数据，自己定义就好了
         List<Test> testList = new ArrayList<Test>();
-        Test t1 = new Test("千层纸", 23.00, 2);
-        Test t2 = new Test("熟地", 23.00, 4);
-        Test t3 = new Test("生地", 24.00, 3);
+        Test t1 = new Test("党参 xg", 0.35, 10);
+        Test t2 = new Test("熟地 xg", 0.16, 20);
+        Test t3 = new Test("生地 xg", 0.16, 10);
+        Test t4 = new Test("黄芪 xg", 0.25, 10);
+        Test t5 = new Test("枸杞 xg", 0.20, 10);
+        Test t6 = new Test("桔梗 xg", 0.35, 10);
+        Test t7 = new Test("紫苑 xg", 0.25, 10);
+        Test t8 = new Test("地骨皮 xg", 0.15, 10);
+        Test t9 = new Test("白芍 xg", 0.10, 10);
+        Test t10 = new Test("赤芍 xg", 0.18, 10);
+        Test t11 = new Test("防风 xg", 0.55, 10);
+        Test t12 = new Test("生石膏 xg", 0.50, 10);
+        Test t13 = new Test("当归 xg", 0.35, 10);
+        Test t14 = new Test("丹皮 xg", 0.25, 10);
+        Test t15 = new Test("五味子 xg", 0.35, 10);
+        Test t16 = new Test("女贞子 xg", 0.35, 10);
+
         testList.add(t1);
         testList.add(t2);
         testList.add(t3);
+        testList.add(t4);
+        testList.add(t5);
+        testList.add(t6);
+        testList.add(t7);
+        testList.add(t8);
+        testList.add(t9);
+        testList.add(t10);
+        testList.add(t11);
+        testList.add(t12);
+        testList.add(t13);
+        testList.add(t14);
+        testList.add(t15);
+        testList.add(t16);
 
         // 设置小票模型菜品集合
         Prient.setTestList(testList);

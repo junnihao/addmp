@@ -31,16 +31,15 @@ public class Prient implements Printable {
         //模式  字体   字体大小
         g2d.setFont(new Font("Default", Font.PLAIN, 16));
         // 参数1：显示内容 参数2：横向偏移 参数3：纵向偏移
-        g2d.drawString("药品清单", 100, 50);
-        g2d.drawString("------------------------------------------------", 40, 70);
-        g2d.setFont(new Font("Default", Font.PLAIN, 12));
-        g2d.drawString("点餐员：自定义", 40, 90);
-        g2d.drawString("电话：自定义", 40, 110);
-        g2d.drawString("用餐时间：自定义", 40, 130);
-        g2d.drawString("用餐地址：打印测试", 40, 150);
+        g2d.drawString("广东本草药业连锁有限公司", 20, 50);
+        g2d.drawString("白石洲分店", 50, 70);
+        g2d.drawString("------------------------------------------------", 40, 90);
+        g2d.setFont(new Font("Default", Font.PLAIN, 9));
+        g2d.drawString("患者：刘修俊", 40, 90);
+        g2d.drawString("电话：15818669916", 40, 110);
         g2d.setFont(new Font("Default", Font.PLAIN, 16));
         g2d.drawString("------------------------------------------------", 40, 170);
-        g2d.drawString("菜品             单价             小计", 40, 190);
+        g2d.drawString("药品             单价             小计", 40, 190);
         g2d.setFont(new Font("Default", Font.PLAIN, 12));
         int H1 = 190;
         double zmoney = 0;
@@ -60,8 +59,8 @@ public class Prient implements Printable {
         g2d.drawString("应收：￥" + (zmoney-20), 40, H1 + 80);
         g2d.drawString("实收：￥" + zmoney, 40, H1 + 100);
         g2d.drawString("找零：￥" + 20, 40, H1 + 120);
-        g2d.drawString("收银员：" + "打印测试", 40, H1 + 140);
-        g2d.drawString("谢谢惠顾，欢迎下次光临！", 80, H1 + 160);
+        g2d.drawString("收银员：" + " ", 40, H1 + 140);
+        g2d.drawString("谢谢惠顾，祝您早日康复！", 80, H1 + 160);
         return PAGE_EXISTS;
     }
     public static List<Test> getTestList() {
