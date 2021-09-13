@@ -33,3 +33,4 @@ build/
 .vscode/
 /demo/src/main/java/com/example/demo/springboot/schedule/ScheduledConfig.java
 /security/src/main/java/com/addmp/security/config/notes
+/demo/src/main/java/com/example/demo/system/config/WebSecurityConfig.java

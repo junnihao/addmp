@@ -3,6 +3,7 @@ package com.addmp.security.config;
 import com.alibaba.csp.sentinel.cluster.ClusterStateManager;
 import com.addmp.security.provider.JwtAuthenticationProvider;
 import com.addmp.security.provider.UserAuthenticationProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,7 @@ import java.util.Collections;
  * @author HuaDong
  * @since 2021/4/24 20:10
  */
+@Slf4j
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -37,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		log.info(">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<");
 		http.authorizeRequests()
 				// 配置白名单（比如登录接口）
 				.antMatchers(securityConfig.getPermitUrls()).permitAll()
