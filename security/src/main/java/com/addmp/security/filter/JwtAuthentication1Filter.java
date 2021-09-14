@@ -31,7 +31,7 @@ public class JwtAuthentication1Filter extends OncePerRequestFilter {
         log.info("This is the commom security for all app....... ") ;
         // 解决跨域问题
         String originHeader= request.getHeader("Origin");
-        if (allowedOrigins.contains(originHeader)) {
+        if ("http://localhost,http://localhost:8089,http://localhost:8080".contains(originHeader)) {
             response.setHeader("Access-Control-Allow-Origin", originHeader);
         }
         response.setHeader("Access-Control-Allow-Credentials", "true");
