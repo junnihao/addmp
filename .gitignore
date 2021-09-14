@@ -34,3 +34,5 @@ build/
 /demo/src/main/java/com/example/demo/springboot/schedule/ScheduledConfig.java
 /security/src/main/java/com/addmp/security/config/notes
 /demo/src/main/java/com/example/demo/system/config/WebSecurityConfig.java
+/security/src/main/java/com/addmp/security/jwt/JwtAuthenticationFilter.java
+/security/src/main/java/com/addmp/security/jwt/JwtAuthenticationFilter.java
