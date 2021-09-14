@@ -1,5 +1,6 @@
 package com.addmp.security.config;
 
+import com.addmp.security.filter.JwtAuthentication1Filter;
 import com.addmp.security.filter.UserAuthenticationFilter;
 import com.addmp.security.handler.HttpStatusLoginFailureHandler;
 import com.addmp.security.handler.UserLoginSuccessHandler;
@@ -25,6 +26,8 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 
 	@Override
 	public void configure(B http) throws Exception {
+		JwtAuthentication1Filter  f = new JwtAuthentication1Filter() ;
+
 
 		UserAuthenticationFilter authFilter = new UserAuthenticationFilter();
 
@@ -39,6 +42,8 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 		// 拦截器位置
 		UserAuthenticationFilter filter = postProcess(authFilter);
 		http.addFilterAfter(filter, LogoutFilter.class);
+
+		http.addFilterBefore(f,UserAuthenticationFilter.class);
 	}
 
 }

@@ -17,7 +17,6 @@ import java.util.Set;
  * 身份认证过滤器
  */
 @Slf4j
-@Component
 public class JwtAuthentication1Filter extends OncePerRequestFilter {
 
     @Value("${allowedOrigins}")

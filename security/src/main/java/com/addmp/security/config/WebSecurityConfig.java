@@ -40,6 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		log.info(">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<");
+		http.cors().and();
 		http.authorizeRequests()
 				// 配置白名单（比如登录接口）
 				.antMatchers(securityConfig.getPermitUrls()).permitAll()
@@ -109,10 +110,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	protected CorsConfigurationSource corsConfigurationSource() {
+		log.info("yyyyyyyyyyyyyyyyyyyy");
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Collections.singletonList("*"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "HEAD", "DELETE", "PUT", "OPTION"));
-		configuration.setAllowedHeaders(Collections.singletonList("*"));
+		//configuration.setAllowedHeaders(Collections.singletonList("*"));
+		configuration.setAllowedHeaders(Collections.singletonList("Access-Control-Allow-Origin"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
