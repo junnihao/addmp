@@ -39,7 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		log.info(">>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<");
 		http.cors().and();
 		http.authorizeRequests()
 				// 配置白名单（比如登录接口）
@@ -49,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
 				.antMatchers("/buyer/**").hasRole("BUYER")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
-				.anyRequest().access("@rbacService.hasPermission(request, authentication)")
+				         //.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问
                 //.anyRequest().denyAll()
 				.and()
@@ -61,7 +60,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 添加请求头
 				.headers().addHeaderWriter(
 				new StaticHeadersWriter(Collections.singletonList(
-						new Header("Access-control-Allow-Origin", "*"))))
+						new Header("Access-control-Allow-Origin", "http://localhost:8080")))).
+				addHeaderWriter(
+						new StaticHeadersWriter(Collections.singletonList(
+								new Header("Access-Control-Allow-Credentials", "true")))
+				).addHeaderWriter(
+						new StaticHeadersWriter(Collections.singletonList(
+								new Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With, token, x-token"))
+				)).addHeaderWriter(
+						new StaticHeadersWriter(Collections.singletonList(
+								new Header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"))
+						)
+				)
 				.and()
 				// 自定义的登录过滤器，不同的登录方式创建不同的登录过滤器，一样的配置方式
 				.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
