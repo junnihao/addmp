@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.addmp.security.jwt.JwtAuthenticationFilter ;
 
 @Slf4j
-@Component
+// @Component
 public class AuthenticationFilter extends JwtAuthenticationFilter {
 
 }
