@@ -1,10 +1,12 @@
 package com.addmp.security.config;
 
+import com.addmp.security.filter.JwtAuthentication1Filter;
 import com.alibaba.csp.sentinel.cluster.ClusterStateManager;
 import com.addmp.security.provider.JwtAuthenticationProvider;
 import com.addmp.security.provider.UserAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.header.Header;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
@@ -76,8 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				)
 				.and()
 				// 自定义的登录过滤器，不同的登录方式创建不同的登录过滤器，一样的配置方式
-				.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
-				.and()
+				//.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
+				//.and()
 				// 自定义的JWT令牌认证过滤器
 				.apply(new JwtLoginConfigurer<>(securityConfig))
 				.and()
@@ -134,6 +137,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
+	}
+
+	@Bean(name = "corsFilterX")
+	public FilterRegistrationBean corsFilteXr() {
+		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		registrationBean.setFilter(new JwtAuthentication1Filter());
+		//registrationBean.setUrlPatterns(Lists.newArrayList("/*"));
+		registrationBean.setOrder(1);
+		return registrationBean;
 	}
 
 }
