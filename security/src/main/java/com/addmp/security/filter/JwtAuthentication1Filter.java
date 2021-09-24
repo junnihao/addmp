@@ -19,8 +19,11 @@ import java.util.Set;
 @Slf4j
 public class JwtAuthentication1Filter extends OncePerRequestFilter {
 
-    @Value("${allowedOrigins}")
+    //@Value("${allowedOrigins}")
     Set<String> allowedOrigins;
+    public void setAllowedOrigins(Set<String> allowedOrigins){
+        this.allowedOrigins = allowedOrigins ;
+    }
 
     /*@Resource
     private JwtUtil jwtUtil;*/
@@ -31,7 +34,7 @@ public class JwtAuthentication1Filter extends OncePerRequestFilter {
         log.info("This is the commom security for all app....... ") ;
         // 解决跨域问题
         String originHeader= request.getHeader("Origin");
-        if ("http://localhost,http://localhost:8089,http://localhost:8080".contains(originHeader)) {
+        if (allowedOrigins.contains(originHeader)) {
             response.setHeader("Access-Control-Allow-Origin", originHeader);
         }
         response.setHeader("Access-Control-Allow-Credentials", "true");

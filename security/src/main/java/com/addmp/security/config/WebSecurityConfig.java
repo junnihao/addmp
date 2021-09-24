@@ -39,21 +39,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and();
 		http.authorizeRequests()
+				.antMatchers("OPTIONS").permitAll()
 				// 配置白名单（比如登录接口）
 				.antMatchers(securityConfig.getPermitUrls()).permitAll()
 				// 匿名访问的URL，即不用登录也可以访问（比如广告接口）
 				.antMatchers(securityConfig.getAnonymousUrls()).permitAll()
+				.antMatchers("http://localhost:8080").permitAll()
+				.antMatchers("http://localhost:8089").permitAll()
 				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
-				.antMatchers("/buyer/**").hasRole("BUYER")
+				  // .antMatchers("/buyer/**").hasRole("BUYER")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
 				         //.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问
                 //.anyRequest().denyAll()
 				.and()
 				// 禁用跨站点伪造请求
-				.csrf().disable()
+				//.csrf().disable()
 				// 启用跨域资源共享
 				.cors()
 				.and()
@@ -89,7 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 禁用SecurityContext，这个配置器实际上认证信息会保存在Session中，但我们并不用Session机制，所以也禁用
 				.securityContext().disable();
 
-		this.sentinelConfig();
+		//this.sentinelConfig();
 	}
 
 	private void sentinelConfig() {
@@ -120,7 +122,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	protected CorsConfigurationSource corsConfigurationSource() {
-		log.info("yyyyyyyyyyyyyyyyyyyy");
+		log.info("set corsConfigurationSource is:>>>>>>>>>>>>>>>>> ");
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowCredentials(true);
 		configuration.setAllowedHeaders(Collections.singletonList("Content-Type, Content-Length, Authorization, Accept, X-Requested-With, token, x-token"));
