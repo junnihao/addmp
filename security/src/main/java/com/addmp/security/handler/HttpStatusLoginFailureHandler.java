@@ -23,6 +23,7 @@ public class HttpStatusLoginFailureHandler implements AuthenticationFailureHandl
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+		log.error("failue ------------------  ");
 
 		// TODO 走到这里说明认证流程失败了，会对异常信息做一个统一的处理，通过 response 写回到客户端
 

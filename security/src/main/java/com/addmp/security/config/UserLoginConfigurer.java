@@ -26,9 +26,6 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 
 	@Override
 	public void configure(B http) throws Exception {
-		JwtAuthentication1Filter  f = new JwtAuthentication1Filter() ;
-
-
 		UserAuthenticationFilter authFilter = new UserAuthenticationFilter();
 
 		authFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
@@ -42,8 +39,7 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 		// 拦截器位置
 		UserAuthenticationFilter filter = postProcess(authFilter);
 		http.addFilterAfter(filter, LogoutFilter.class);
-
-		http.addFilterBefore(f,UserAuthenticationFilter.class);
+		http.addFilterAfter(new JwtAuthentication1Filter(),UserAuthenticationFilter.class);
 	}
 
 }

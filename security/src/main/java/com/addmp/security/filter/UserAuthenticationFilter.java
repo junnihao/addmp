@@ -1,9 +1,12 @@
 package com.addmp.security.filter;
 
+import com.addmp.security.dto.JwtUserLoginDTO;
 import com.alibaba.fastjson.JSON;
 import com.addmp.security.token.UserAuthenticationToken;
 import com.addmp.security.request.UserLoginRequest;
 
+import com.auth0.jwt.algorithms.Algorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -12,11 +15,15 @@ import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 /**
  * 登录认证过滤器
@@ -24,10 +31,12 @@ import java.nio.charset.StandardCharsets;
  * @author HuaDong
  * @since 2021/4/24 20:22
  */
+@Slf4j
 public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
 	public UserAuthenticationFilter() {
-		super(new AntPathRequestMatcher("/user/login", "POST"));
+		super(new AntPathRequestMatcher("/demo/user/login", "POST"));
+		log.info("step one : init UserAuthenticationFilter  .........................." ) ;
 	}
 
 	@Override
@@ -36,6 +45,34 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 		Assert.notNull(this.getSuccessHandler(), "AuthenticationSuccessHandler must be specified");
 		Assert.notNull(this.getFailureHandler(), "AuthenticationFailureHandler must be specified");
 	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		log.info("step two--- : display the requiresAuthentication config.........................." +this.requiresAuthentication((HttpServletRequest)request, (HttpServletResponse)response)) ;
+		//重新父类方法，有调用父类方法，只是为了跟踪日志
+		super.doFilter(request,response,chain);
+		/*if (!this.requiresAuthentication((HttpServletRequest)request, (HttpServletResponse)response)) {
+			log.info("step three :  requiresAuthentication=false......................... ");
+			//this.setResponse((HttpServletRequest)request, (HttpServletResponse)response);
+			chain.doFilter(request, response);
+		}
+		chain.doFilter(request,response);*/
+	}
+
+     //以为要在这里设置response，其实是不需要
+	/*public void setResponse(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		log.info("serAuthenticationFilter>>>>>>>>>>>>>>>>>>>>>--4 set response ");
+		String originHeader= request.getHeader("Origin");
+		response.setHeader("Access-Control-Allow-Origin", originHeader);
+
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With, token, x-token");
+
+		// 明确允许通过的方法，不建议使用*
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Access-Control-Expose-Headers", "*");
+	}*/
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -54,7 +91,7 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 		// =================================================== 示例 ===============================================
 
-		String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+		/*String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
 		String mobile = null, password = null, verifyCode = null;
 
 		if(StringUtils.hasText(body)) {
@@ -62,15 +99,17 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 			mobile = loginRequest.getMobile();
 			password = loginRequest.getPassword();
 			verifyCode = loginRequest.getVerifyCode();
-		}
+		}*/
 
 		// TODO 这里验证图形验证码 verifyCode 是否正确
 
-		UserAuthenticationToken token = new UserAuthenticationToken(
-				null, mobile, password);
+		/*UserAuthenticationToken token = new UserAuthenticationToken(
+				null, mobile, password);*/
 
 		// 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
-		return this.getAuthenticationManager().authenticate(token);
+		//return this.getAuthenticationManager().authenticate(token);
+		log.info("UserAuthenticationFilter>>>>>>>>>>>>>>>>>>>>>" ) ;
+		return null;
 	}
 
 }

@@ -58,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.anyRequest().denyAll()
 				.and()
 				// 禁用跨站点伪造请求
-				//.csrf().disable()
+				.csrf().disable()
 				// 启用跨域资源共享
 				.cors()
 				.and()
@@ -79,11 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				)
 				.and()
 				// 自定义的登录过滤器，不同的登录方式创建不同的登录过滤器，一样的配置方式
-				//.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
-				//.and()
-				// 自定义的JWT令牌认证过滤器
-				.apply(new JwtLoginConfigurer<>(securityConfig))
+				.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
 				.and()
+				// 自定义的JWT令牌认证过滤器
+				//.apply(new JwtLoginConfigurer<>(securityConfig))
+				//.and()
 				// 登出过滤器
 				.logout()
 				// 登出成功处理器
@@ -123,7 +123,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	@Bean
+	//这个配置应该是不需要
+	/*@Bean
 	protected CorsConfigurationSource corsConfigurationSource() {
 		log.info("set corsConfigurationSource is:>>>>>>>>>>>>>>>>> ");
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -137,10 +138,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
-	}
+	}*/
 
-	@Bean(name = "corsFilterX")
-	public FilterRegistrationBean corsFilteXr() {
+	//当请求是OPTIONS时，用这个Filter做处理
+	@Bean(name = "corsFilterForOptions")
+	public FilterRegistrationBean corsFilterForOptions() {
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new JwtAuthentication1Filter());
 		//registrationBean.setUrlPatterns(Lists.newArrayList("/*"));
