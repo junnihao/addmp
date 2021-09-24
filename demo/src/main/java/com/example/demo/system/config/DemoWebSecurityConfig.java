@@ -28,28 +28,28 @@ import java.util.Collections;
 public class DemoWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        log.info("x>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<-----------XXX");
+        log.info("x>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<-----------XXXy");
         //http.cors().and();
 
         http.authorizeRequests()
                 // 配置白名单（比如登录接口）
                 .antMatchers("OPTIONS").permitAll()
                 .antMatchers("http://localhost:8080").permitAll()
-                //.antMatchers("http://localhost:8089").permitAll()
+                .antMatchers("http://localhost:8089").permitAll()
                 // 匿名访问的URL，即不用登录也可以访问（比如广告接口）
                 .antMatchers("/demo/user/login").permitAll()
                 // 买家接口需要 “ROLE_BUYER” 角色权限才能访问
-                .antMatchers("/buyer/**").hasRole("BUYER")
+                //.antMatchers("/buyer/**").hasRole("BUYER")
                 // 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
                 //.anyRequest().access("@rbacService.hasPermission(request, authentication)")
                 // 其他URL一律拒绝访问
                 //.anyRequest().denyAll()
                 .and()
                 // 禁用跨站点伪造请求
-                .csrf().disable()
+                //.csrf().disable()
                 // 启用跨域资源共享
-                .cors()
-                .and()
+                //.cors()
+                //.and()
                 // 添加请求头
                 .headers().addHeaderWriter(
                 new StaticHeadersWriter(Collections.singletonList(
@@ -110,13 +110,13 @@ public class DemoWebSecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }*/
 
-    /*@Bean(name = "corsFilter")
+    @Bean(name = "corsFilter")
     public FilterRegistrationBean corsFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new AuthenticationFilter());
         //registrationBean.setUrlPatterns(Lists.newArrayList("/*"));
         registrationBean.setOrder(1);
         return registrationBean;
-    }*/
+    }
 
 }
