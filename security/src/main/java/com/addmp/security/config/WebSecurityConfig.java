@@ -8,11 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFilter;
@@ -41,19 +43,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private SecurityConfig securityConfig;
 
 	@Override
+	public void configure(WebSecurity web) throws Exception {
+		log.info("ignoring() ---------------") ;
+		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+		/*开启后会直接忽略请求*/
+		//web.ignoring().antMatchers(securityConfig.getPermitUrls());
+		//web.ignoring().antMatchers(securityConfig.getAnonymousUrls());
+	}
+
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+		        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.antMatchers("OPTIONS").permitAll()
 				// 配置白名单（比如登录接口）
 				.antMatchers(securityConfig.getPermitUrls()).permitAll()
 				// 匿名访问的URL，即不用登录也可以访问（比如广告接口）
 				.antMatchers(securityConfig.getAnonymousUrls()).permitAll()
-				.antMatchers("http://localhost:8080").permitAll()
-				.antMatchers("http://localhost:8089").permitAll()
+				.antMatchers("/demo/user/login").permitAll()
 				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
-				  // .antMatchers("/buyer/**").hasRole("BUYER")
+				.antMatchers("/buyer/**").hasRole("BUYER")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
-				         //.anyRequest().access("@rbacService.hasPermission(request, authentication)")
+				//.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问
                 //.anyRequest().denyAll()
 				.and()
@@ -104,8 +115,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(userAuthenticationProvider())
-				.authenticationProvider(jwtAuthenticationProvider());
+		/*auth.authenticationProvider(userAuthenticationProvider())
+				.authenticationProvider(jwtAuthenticationProvider());*/
+		auth.authenticationProvider(userAuthenticationProvider());
 	}
 
 	@Bean
@@ -123,8 +135,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	//这个配置应该是不需要
-	/*@Bean
+	//这个配置应该是不需要，所有的配置在configure(HttpSecurity http)  中完成
+	@Bean
 	protected CorsConfigurationSource corsConfigurationSource() {
 		log.info("set corsConfigurationSource is:>>>>>>>>>>>>>>>>> ");
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -138,16 +150,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
-	}*/
-
-	//当请求是OPTIONS时，用这个Filter做处理
-	@Bean(name = "corsFilterForOptions")
-	public FilterRegistrationBean corsFilterForOptions() {
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		registrationBean.setFilter(new JwtAuthentication1Filter());
-		//registrationBean.setUrlPatterns(Lists.newArrayList("/*"));
-		registrationBean.setOrder(1);
-		return registrationBean;
 	}
-
 }

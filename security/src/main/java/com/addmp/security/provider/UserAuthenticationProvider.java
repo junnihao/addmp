@@ -45,8 +45,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 		//JwtUserLoginDTO jwtUserLoginDTO = new JwtUserLoginDTO(
 				//userInfo.getUserId(), userInfo.getNickname(), userInfo.getMobile(), roleName);
 
-		//return new JwtAuthenticationToken(jwtUserLoginDTO, null, null);
-		return null;
+		return new JwtAuthenticationToken(null, null, null);
 	}
 
 	private UserInfoDTO checkAndGetUserInfo(String mobile, String password) {

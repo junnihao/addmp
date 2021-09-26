@@ -39,14 +39,17 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 		// =================================================== 示例 ===============================================
 
 		// 这里的逻辑是生成JWT令牌（很多公司也会用Session），将生成的JWT返回给前端
-		Date expiredDate = new Date(System.currentTimeMillis() + securityConfig.getTokenExpireTimeInSecond() * 1000);
+		/*Date expiredDate = new Date(System.currentTimeMillis() + securityConfig.getTokenExpireTimeInSecond() * 1000);
 		Algorithm algorithm = Algorithm.HMAC256(securityConfig.getTokenEncryptSalt());
 
 		JwtUserLoginDTO jwtUserLoginDTO = (JwtUserLoginDTO) authentication.getPrincipal();
-		String token = jwtUserLoginDTO.sign(algorithm, expiredDate);
+		String token = jwtUserLoginDTO.sign(algorithm, expiredDate);*/
 
 		// 设置请求头，将JWT令牌以请求头的方式返回给前端
-		response.addHeader(HEADER_SET_ACCESS_TOKEN, token);
+		//response.addHeader(HEADER_SET_ACCESS_TOKEN, token);
+
+
+		response.addHeader(HEADER_SET_ACCESS_TOKEN, "ancdedff  ......");
 
 	}
 }

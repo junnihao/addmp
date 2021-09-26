@@ -48,31 +48,19 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		log.info("step two--- : display the requiresAuthentication config.........................." +this.requiresAuthentication((HttpServletRequest)request, (HttpServletResponse)response)) ;
-		//重新父类方法，有调用父类方法，只是为了跟踪日志
-		super.doFilter(request,response,chain);
-		/*if (!this.requiresAuthentication((HttpServletRequest)request, (HttpServletResponse)response)) {
-			log.info("step three :  requiresAuthentication=false......................... ");
-			//this.setResponse((HttpServletRequest)request, (HttpServletResponse)response);
-			chain.doFilter(request, response);
-		}
-		chain.doFilter(request,response);*/
+
+		String method = ((HttpServletRequest) request).getMethod();
+		log.info("method.........................."+method);
+		String token = ((HttpServletRequest) request).getHeader("tokenName") ;
+		/*如果请求中不带token，则走登录流程*/
+		/*if (token == null) {
+			super.doFilter(request,response,chain);
+		}else{
+			//如果已经有了 token，说明已经登录了，则走下一个filter
+			chain.doFilter(request,response);
+		}*/
+		chain.doFilter(request,response);
 	}
-
-     //以为要在这里设置response，其实是不需要
-	/*public void setResponse(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		log.info("serAuthenticationFilter>>>>>>>>>>>>>>>>>>>>>--4 set response ");
-		String originHeader= request.getHeader("Origin");
-		response.setHeader("Access-Control-Allow-Origin", originHeader);
-
-		response.setHeader("Access-Control-Allow-Credentials", "true");
-		response.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With, token, x-token");
-
-		// 明确允许通过的方法，不建议使用*
-		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-		response.setHeader("Access-Control-Max-Age", "3600");
-		response.setHeader("Access-Control-Expose-Headers", "*");
-	}*/
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -108,8 +96,10 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 		// 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
 		//return this.getAuthenticationManager().authenticate(token);
-		log.info("UserAuthenticationFilter>>>>>>>>>>>>>>>>>>>>>" ) ;
-		return null;
+		log.info("step one is : attemptAuthentication ................................") ;
+		UserAuthenticationToken token = new UserAuthenticationToken(
+				null, "11111", "2222");
+		return token;
 	}
 
 }
