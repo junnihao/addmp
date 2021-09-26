@@ -44,23 +44,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		log.info("ignoring() ---------------") ;
+		log.info("ignoring() config ---------------") ;
 		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
-		/*开启后会直接忽略请求*/
+		/*开启后,spring security 会直接忽略请求*/
 		//web.ignoring().antMatchers(securityConfig.getPermitUrls());
-		//web.ignoring().antMatchers(securityConfig.getAnonymousUrls());
+		web.ignoring().antMatchers(securityConfig.getAnonymousUrls());
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-				.antMatchers("OPTIONS").permitAll()
+		        //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				//.antMatchers("OPTIONS").permitAll()
 				// 配置白名单（比如登录接口）
 				.antMatchers(securityConfig.getPermitUrls()).permitAll()
 				// 匿名访问的URL，即不用登录也可以访问（比如广告接口）
-				.antMatchers(securityConfig.getAnonymousUrls()).permitAll()
-				.antMatchers("/demo/user/login").permitAll()
+				//.antMatchers(securityConfig.getAnonymousUrls()).permitAll()
 				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
 				.antMatchers("/buyer/**").hasRole("BUYER")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
@@ -136,7 +135,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	//这个配置应该是不需要，所有的配置在configure(HttpSecurity http)  中完成
-	@Bean
+	/*@Bean
 	protected CorsConfigurationSource corsConfigurationSource() {
 		log.info("set corsConfigurationSource is:>>>>>>>>>>>>>>>>> ");
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -150,5 +149,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
-	}
+	}*/
 }
