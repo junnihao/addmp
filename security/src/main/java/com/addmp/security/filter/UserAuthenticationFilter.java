@@ -1,6 +1,7 @@
 package com.addmp.security.filter;
 
 import com.addmp.security.dto.JwtUserLoginDTO;
+import com.addmp.security.util.BodyReaderHttpServletRequestWrapper;
 import com.alibaba.fastjson.JSON;
 import com.addmp.security.token.UserAuthenticationToken;
 import com.addmp.security.request.UserLoginRequest;
@@ -48,6 +49,9 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		// 防止流读取一次后就没有了, 所以需要将流继续写出去
+		//HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		//ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper(httpServletRequest);
 
 		String method = ((HttpServletRequest) request).getMethod();
 		log.info("method.........................."+method);
@@ -65,6 +69,15 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
+
+		String parameterMap = "";
+		try {
+			parameterMap = new BodyReaderHttpServletRequestWrapper(request).getBodyString(request);
+			log.info(" parameterMap is:-------------------->"+ parameterMap);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		// TODO 这里的逻辑主要有两个作用，一个是进行初步的校验，一个是组装待认证的Token，举几个例子：
 
