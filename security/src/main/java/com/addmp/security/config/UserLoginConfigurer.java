@@ -1,6 +1,6 @@
 package com.addmp.security.config;
 
-import com.addmp.security.filter.JwtAuthentication1Filter;
+//import com.addmp.security.filter.JwtAuthentication1Filter;
 import com.addmp.security.filter.UserAuthenticationFilter;
 import com.addmp.security.handler.HttpStatusLoginFailureHandler;
 import com.addmp.security.handler.UserLoginSuccessHandler;
@@ -39,7 +39,8 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 		// 拦截器位置
 		UserAuthenticationFilter filter = postProcess(authFilter);
 		http.addFilterAfter(filter, LogoutFilter.class);
-		http.addFilterAfter(new JwtAuthentication1Filter(),UserAuthenticationFilter.class);
+		/*这个 Filter 不需要，因为用户登录成功之后，已经返回给前台了，filter根本走不到这里来*/
+		//http.addFilterAfter(new JwtAuthentication1Filter(),UserAuthenticationFilter.class);
 	}
 
 }
