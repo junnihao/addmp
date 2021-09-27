@@ -1,7 +1,7 @@
 package com.addmp.security.filter;
 
 import com.addmp.security.dto.JwtUserLoginDTO;
-import com.addmp.security.util.BodyReaderHttpServletRequestWrapper;
+//import com.addmp.security.util.BodyReaderHttpServletRequestWrapper;
 import com.alibaba.fastjson.JSON;
 import com.addmp.security.token.UserAuthenticationToken;
 import com.addmp.security.request.UserLoginRequest;
@@ -49,10 +49,6 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// 防止流读取一次后就没有了, 所以需要将流继续写出去
-		//HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		//ServletRequest requestWrapper = new BodyReaderHttpServletRequestWrapper(httpServletRequest);
-
 		String method = ((HttpServletRequest) request).getMethod();
 		log.info("method.........................."+method);
 		String token = ((HttpServletRequest) request).getHeader("tokenName") ;
@@ -69,16 +65,6 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
-
-		String parameterMap = "";
-		try {
-			parameterMap = new BodyReaderHttpServletRequestWrapper(request).getBodyString(request);
-			log.info(" parameterMap is:-------------------->"+ parameterMap);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
 		// TODO 这里的逻辑主要有两个作用，一个是进行初步的校验，一个是组装待认证的Token，举几个例子：
 
 		// 1.微信授权登录：客户端会传过来一些加密串，这里逻辑主要解密这些加密串的数据获取unionId、openId、手机号以及用户昵称头像等基本信息，
@@ -92,7 +78,9 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
 		// =================================================== 示例 ===============================================
 
-		/*String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+		String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+		log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> parameter is: "+body);
+		/*
 		String mobile = null, password = null, verifyCode = null;
 
 		if(StringUtils.hasText(body)) {
