@@ -1,5 +1,6 @@
 package com.addmp.security.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.addmp.security.config.SecurityConfig;
 import com.addmp.security.dto.JwtUserLoginDTO;
@@ -48,8 +49,11 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 		// 设置请求头，将JWT令牌以请求头的方式返回给前端
 		//response.addHeader(HEADER_SET_ACCESS_TOKEN, token);
 
-
 		response.addHeader(HEADER_SET_ACCESS_TOKEN, "ancdedff  ......");
 
+		log.info("授权成功之后返回json字符串 ");
+		response.setStatus(200);
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().append("{\"success\":true,\"message\":\"登录成功!\",\"data\":\"{}\"}");
 	}
 }

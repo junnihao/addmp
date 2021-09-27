@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		/*真正解决 OPTIONS 403问题的 方法*/
 		log.info("ignoring() config ---------------") ;
 		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
 		/*开启后,spring security 会直接忽略请求*/
