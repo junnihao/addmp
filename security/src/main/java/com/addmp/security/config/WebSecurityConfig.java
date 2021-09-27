@@ -64,9 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
 				.antMatchers("/buyer/**").hasRole("BUYER")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
-				//.anyRequest().access("@rbacService.hasPermission(request, authentication)")
+				.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问
-                //.anyRequest().denyAll()
+//              .anyRequest().denyAll()
 				.and()
 				// 禁用跨站点伪造请求
 				.csrf().disable()
@@ -90,8 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				)
 				.and()
 				// 自定义的登录过滤器，不同的登录方式创建不同的登录过滤器，一样的配置方式
-				.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
-				.and()
+				//.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig))
+				//.and()
 				// 自定义的JWT令牌认证过滤器
 				//.apply(new JwtLoginConfigurer<>(securityConfig))
 				//.and()
@@ -105,12 +105,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 禁用SecurityContext，这个配置器实际上认证信息会保存在Session中，但我们并不用Session机制，所以也禁用
 				.securityContext().disable();
 
+		customizedSecurityConfig(http);
 		//this.sentinelConfig();
 	}
 
 	private void sentinelConfig() {
 		// 指定当前身份为 Token Client
 		ClusterStateManager.applyState(ClusterStateManager.CLUSTER_CLIENT);
+	}
+
+	protected void customizedSecurityConfig(HttpSecurity http) throws Exception {
+		// 提供给其他模块配置 security
 	}
 
 	@Override

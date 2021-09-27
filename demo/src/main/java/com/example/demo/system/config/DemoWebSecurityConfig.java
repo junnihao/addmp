@@ -14,4 +14,9 @@ public class DemoWebSecurityConfig extends WebSecurityConfig{
     public SecurityConfig securityConfig(){
         return new SecurityConfig() ;
     }
+
+    @Override
+    protected void customizedSecurityConfig(HttpSecurity http) throws Exception {
+       http.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig()));
+    }
 }
