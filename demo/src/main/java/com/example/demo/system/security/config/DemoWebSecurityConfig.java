@@ -1,4 +1,4 @@
-/*package com.example.demo.system.config;
+package com.example.demo.system.security.config;
 import com.addmp.security.config.WebSecurityConfig;
 import com.addmp.security.config.SecurityConfig;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-@Configuration //移动到 security下
+@Configuration
 public class DemoWebSecurityConfig extends WebSecurityConfig{
 
     @Bean
@@ -17,6 +17,6 @@ public class DemoWebSecurityConfig extends WebSecurityConfig{
 
     @Override
     protected void customizedSecurityConfig(HttpSecurity http) throws Exception {
-       http.apply(new com.addmp.security.config.UserLoginConfigurer<>(securityConfig()));
+       http.apply(new DemoUserLoginConfigurer(securityConfig()));
     }
-}*/
+}

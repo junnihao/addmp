@@ -26,7 +26,7 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 
 	@Override
 	public void configure(B http) throws Exception {
-		UserAuthenticationFilter authFilter = new UserAuthenticationFilter();
+		UserAuthenticationFilter authFilter = this.getUserAuthenticationFilter();
 
 		authFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
 		authFilter.setSessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy());
@@ -41,6 +41,10 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 		http.addFilterAfter(filter, LogoutFilter.class);
 		/*这个 Filter 不需要，因为用户登录成功之后，已经返回给前台了，filter根本走不到这里来*/
 		//http.addFilterAfter(new JwtAuthentication1Filter(),UserAuthenticationFilter.class);
+	}
+
+	protected UserAuthenticationFilter getUserAuthenticationFilter(){
+		return new UserAuthenticationFilter();
 	}
 
 }
