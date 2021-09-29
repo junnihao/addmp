@@ -7,7 +7,7 @@ import com.example.demo.system.service.iface.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("userService")
 public class UserService implements IUserService {
     @Autowired
     private UserMapper userMapper;
