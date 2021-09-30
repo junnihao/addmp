@@ -6,6 +6,8 @@ import com.addmp.security.token.UserAuthenticationToken;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.system.entity.User;
 import com.example.demo.system.parameter.UserLoginParameter;
+import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
+import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
 import com.example.demo.system.util.ApplicationUtil;
 import com.example.demo.system.util.Response;
@@ -37,6 +39,8 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
         // 3.账号密码图形验证码登录：这里主要验证图形验证码的正确性，然后组装Token传给Provider进行下一步认证，如果图形验证码错误直接抛异常
         // ...
         // =================================================== 示例 ===============================================
+
+        //从数据库校验用户名和密码的真确性
         String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
         log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> parameter is: "+body);
 
@@ -50,24 +54,18 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
 
         User user = userService.findUser(username,password) ;
         if (user == null) {
-            log.info("授权成功之后返回json字符串 ");
-            response.setStatus(200);
+            log.info("用户名或者密码不正确,返回错误信息 ");
+            response.setStatus(403);
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().append("{\"success\":false,\"message\":\"用户名或者密码不正确!\",\"data\":\"{}\"}");
+            response.getWriter().append("{\"success\":false,\"message\":\"用户名或者密码不正确,请重新输入!\",\"data\":\"{}\"}");
             return null ;
         }
         log.info("find user id is :"+user.getUserName()+ "  and id is : " + user.getId()) ;
-
         // TODO 这里验证图形验证码 verifyCode 是否正确
-
-		UserAuthenticationToken token = new UserAuthenticationToken(
+        DemoUserAuthenticationToken token = new DemoUserAuthenticationToken(
 				null, username, password);
-
+        log.info(">>>>>>>>>>>>>>>>>>>>> step1 ") ;
         // 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
-        //return this.getAuthenticationManager().authenticate(token);
-        log.info("step one is : attemptAuthentication ................................") ;
-        /*UserAuthenticationToken token = new UserAuthenticationToken(
-                null, "11111", "2222");*/
-        return token;
+        return this.getAuthenticationManager().authenticate(token);
     }
 }

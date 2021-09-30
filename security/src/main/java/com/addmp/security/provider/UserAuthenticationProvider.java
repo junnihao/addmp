@@ -5,6 +5,7 @@ import com.addmp.security.token.UserAuthenticationToken;
 import com.addmp.security.dto.JwtUserLoginDTO;
 import com.addmp.security.dto.UserInfoDTO;
 import com.addmp.security.exception.LoginAuthenticationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -17,6 +18,7 @@ import java.util.Objects;
  * @author HuaDong
  * @since 2021/4/24 21:31
  */
+@Slf4j
 public class UserAuthenticationProvider implements AuthenticationProvider {
 
 	public UserAuthenticationProvider() {
@@ -25,7 +27,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
+		log.info(">>>>>>>>>>>>>>>>>>>>> step2 ") ;
 		// TODO 这里主要进行一个数据库层面的认证，比如账号密码的正确性，比如该账号是否被拉黑有什么权限等，都认证成功之后会组装一个认证通过的 Token
 
 		// 这里认证成功返回之后会跑到成功处理器：UserLoginSuccessHandler

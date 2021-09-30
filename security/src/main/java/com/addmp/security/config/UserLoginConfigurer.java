@@ -27,14 +27,8 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 	@Override
 	public void configure(B http) throws Exception {
 		UserAuthenticationFilter authFilter = this.getUserAuthenticationFilter();
-
 		authFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
 		authFilter.setSessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy());
-
-		// 登录成功处理器
-		authFilter.setAuthenticationSuccessHandler(new UserLoginSuccessHandler(securityConfig));
-		// 登录失败处理器
-		authFilter.setAuthenticationFailureHandler(new HttpStatusLoginFailureHandler());
 
 		// 拦截器位置
 		UserAuthenticationFilter filter = postProcess(authFilter);
@@ -44,7 +38,12 @@ public class UserLoginConfigurer<T extends UserLoginConfigurer<T, B>, B extends 
 	}
 
 	protected UserAuthenticationFilter getUserAuthenticationFilter(){
-		return new UserAuthenticationFilter();
+		UserAuthenticationFilter userAuthenticationFilter = new UserAuthenticationFilter() ;
+		// 登录成功处理器
+		userAuthenticationFilter.setAuthenticationSuccessHandler(new UserLoginSuccessHandler(securityConfig));
+		// 登录失败处理器
+		userAuthenticationFilter.setAuthenticationFailureHandler(new HttpStatusLoginFailureHandler());
+		return userAuthenticationFilter;
 	}
 
 }

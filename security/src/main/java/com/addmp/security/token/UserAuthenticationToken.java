@@ -37,6 +37,10 @@ public class UserAuthenticationToken extends AbstractAuthenticationToken {
         this.password = password;
     }
 
+    public UserAuthenticationToken(Collection<? extends GrantedAuthority> authorities){
+        super(authorities);
+    }
+
     @Override
     public Object getCredentials() {
         return mobile;
