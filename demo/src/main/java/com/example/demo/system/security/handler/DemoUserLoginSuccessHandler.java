@@ -33,10 +33,12 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
         // 这里的逻辑是生成JWT令牌（很多公司也会用Session），将生成的JWT返回给前端
 		Date expiredDate = new Date(System.currentTimeMillis() + securityConfig.getTokenExpireTimeInSecond() * 1000);
 		Algorithm algorithm = Algorithm.HMAC256(securityConfig.getTokenEncryptSalt());
+
+        log.info("authentication class  ="+authentication.getClass()) ;
         DemoJwtUserLoginDTO jwtUserLoginDTO = (DemoJwtUserLoginDTO) authentication.getPrincipal();
 
 		log.info(" algorithm-1 = "+ algorithm+"   expiredDate-1 ="+expiredDate) ;
-        log.info(" algorithm = idddddddddddddddddddddd  "+  jwtUserLoginDTO.getUserId()) ;
+        log.info(" algorithm = idddddddddddddddddddddd  "+  jwtUserLoginDTO.getRoleName()) ;
 
 
 		String token = jwtUserLoginDTO.sign(algorithm, expiredDate);

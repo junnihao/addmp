@@ -21,6 +21,7 @@ import javax.print.attribute.standard.PrinterName;
 public class MainTest {
 
     public static void main(String[] args) {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+String.valueOf(null));
         //这里是测试用的数据，自己定义就好了
         List<Test> testList = new ArrayList<Test>();
         Test t1 = new Test("党参 xg", 0.35, 10);

@@ -3,6 +3,7 @@ package com.addmp.security.token;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.addmp.security.dto.JwtUserLoginDTO;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -15,6 +16,7 @@ import java.util.Collections;
  * @author HuaDong
  * @since 2021/4/24 21:25
  */
+@Slf4j
 @Data
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	private static final long serialVersionUID = 3981518947978158945L;
@@ -31,6 +33,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	public JwtAuthenticationToken(JwtUserLoginDTO jwtUserLoginDTO, DecodedJWT token, Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		this.jwtUserLoginDTO = jwtUserLoginDTO;
+		log.info(" init jwtUserLoginDTO =" + jwtUserLoginDTO.getUserId());
 		this.token = token;
 	}
 

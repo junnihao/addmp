@@ -9,6 +9,7 @@ import com.addmp.security.token.UserAuthenticationToken;
 import com.example.demo.system.entity.User;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.dto.DemoUserInfoDTO;
+import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
 import com.example.demo.system.util.ApplicationUtil;
@@ -31,6 +32,7 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
         // =================================================== 示例 ===============================================
 
         DemoUserAuthenticationToken token = (DemoUserAuthenticationToken) authentication;
+        log.info(">>>>>>>>>>>>>>>>>>>>>  ------------"+token.getUsername() +"  "+token.getPassword()) ;
 
         // 校验账号密码是否正确，同时返回用户信息
         DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(token.getUsername(), token.getPassword());
@@ -41,7 +43,8 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
         // 组装并返回认证成功的 Token
         DemoJwtUserLoginDTO jwtUserLoginDTO = new DemoJwtUserLoginDTO(userInfo.getUsername(), userInfo.getPassword());
 
-        return new JwtAuthenticationToken(jwtUserLoginDTO, null, null);
+        // return new JwtAuthenticationToken(jwtUserLoginDTO, null, null);
+        return new DemoJwtAuthenticationToken(jwtUserLoginDTO, null, null);
     }
 
     private DemoUserInfoDTO checkAndGetUserInfo(String username, String password) {
