@@ -38,7 +38,7 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
         DemoJwtUserLoginDTO jwtUserLoginDTO = (DemoJwtUserLoginDTO) authentication.getPrincipal();
 
 		log.info(" algorithm-1 = "+ algorithm+"   expiredDate-1 ="+expiredDate) ;
-        log.info(" algorithm = idddddddddddddddddddddd  "+  jwtUserLoginDTO.getRoleName()) ;
+        log.info(" algorithm = idddddddddddddddddddddd  "+  jwtUserLoginDTO.getNickname()) ;
 
 
 		String token = jwtUserLoginDTO.sign(algorithm, expiredDate);
@@ -48,6 +48,6 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
         response.addHeader(HEADER_SET_ACCESS_TOKEN, token);
         response.setStatus(200);
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().append("{\"success\":true,\"message\":\"登录成功!\",\"data\":\"{}\"}");
+        response.getWriter().append("{\"success\":true,\"message\":\"登录成功!\",\"data\":\"{"+token+"}\"}");
     }
 }
