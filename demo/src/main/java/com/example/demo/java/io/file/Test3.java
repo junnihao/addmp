@@ -80,8 +80,9 @@ public class Test3 {
         return list3;
     }
     public static void main(String[] args) {
-        List<String> idList = new ArrayList<>(Arrays.asList("姓名", "性别"));
-        List<String> nameList = new ArrayList<>(Arrays.asList("杰克", "男"));
+        List<String> idList = new ArrayList<>(Arrays.asList("姓名", "性别","XX","YY"));
+        List<String> nameList = new ArrayList<>(Arrays.asList("杰克", "男","ZZ", "MM"));
+
         Map<String,String> listMap = idList.stream().collect(Collectors.toMap(key->key, key->nameList.get(idList.indexOf(key))));
         System.out.println(listMap.toString());
 

@@ -35,7 +35,9 @@ public class CopyFileContent {
    }
 
    public static void main(String[] args) {
-       String path = "D:/analysisLog/aeon-2021-07-28.log";
-       writeToDat(path);
+       //String path = "D:/analysisLog/aeon-2021-07-28.log";
+       //writeToDat(path);
+	   System.out.println(((111-1)/55));
+       System.out.println("CUPXXX".substring(0,3));
    }
 }
