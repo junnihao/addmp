@@ -17,6 +17,7 @@ public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
     private String password;
 
     public DemoJwtUserLoginDTO(String username,String password){
+        super.setNickname(username);
         this.username = username ;
         this.password = password ;
     }
