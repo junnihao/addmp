@@ -24,7 +24,7 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        log.info(">>>>>>>>>>>>>>>>>>>>> step3 ") ;
+        log.info("step3 ") ;
         log.info("logging success---  授权成功之后返回json字符串 ");
         // TODO 走到这里说明认证成功，可以组装一些响应头的信息给到客户端，比如生成JWT令牌，或者加一些业务上的需求，比如登录送积分等等
 
@@ -38,7 +38,7 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
         DemoJwtUserLoginDTO jwtUserLoginDTO = (DemoJwtUserLoginDTO) authentication.getPrincipal();
 
 		log.info(" algorithm-1 = "+ algorithm+"   expiredDate-1 ="+expiredDate) ;
-        log.info(" algorithm = idddddddddddddddddddddd  "+  jwtUserLoginDTO.getNickname()) ;
+        log.info(" algorithm =  "+  jwtUserLoginDTO.getNickname()) ;
 
 
 		String token = jwtUserLoginDTO.sign(algorithm, expiredDate);

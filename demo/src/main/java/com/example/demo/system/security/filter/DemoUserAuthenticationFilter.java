@@ -42,7 +42,7 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
 
         //从数据库校验用户名和密码的真确性
         String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
-        log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> parameter is: "+body);
+        log.info("parameter is: "+body);
 
 		String username = null, password = null;
 
@@ -64,7 +64,7 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
         // TODO 这里验证图形验证码 verifyCode 是否正确
         DemoUserAuthenticationToken token = new DemoUserAuthenticationToken(
 				null, username, password);
-        log.info(">>>>>>>>>>>>>>>>>>>>> step1 ") ;
+        log.info(" step1..... ") ;
         // 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
         return this.getAuthenticationManager().authenticate(token);
     }

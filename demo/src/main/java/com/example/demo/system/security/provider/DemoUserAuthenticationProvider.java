@@ -23,7 +23,7 @@ import java.util.Objects;
 public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        log.info(">>>>>>>>>>>>>>>>>>>>> step2 ------------") ;
+        log.info("step2 ------------") ;
         // TODO 这里主要进行一个数据库层面的认证，比如账号密码的正确性，比如该账号是否被拉黑有什么权限等，都认证成功之后会组装一个认证通过的 Token
 
         // 这里认证成功返回之后会跑到成功处理器：UserLoginSuccessHandler
@@ -32,7 +32,7 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
         // =================================================== 示例 ===============================================
 
         DemoUserAuthenticationToken token = (DemoUserAuthenticationToken) authentication;
-        log.info(">>>>>>>>>>>>>>>>>>>>>  ------------"+token.getUsername() +"  "+token.getPassword()) ;
+        log.info(" "+token.getUsername() +"  "+token.getPassword()) ;
 
         // 校验账号密码是否正确，同时返回用户信息
         DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(token.getUsername(), token.getPassword());
