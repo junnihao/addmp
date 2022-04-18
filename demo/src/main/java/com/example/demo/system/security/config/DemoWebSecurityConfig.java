@@ -33,6 +33,7 @@ public class DemoWebSecurityConfig extends WebSecurityConfig{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(demoUserAuthenticationProvider()).authenticationProvider(demoJwtAuthenticationProvider());
+        // auth.authenticationProvider(demoUserAuthenticationProvider());
     }
 
     protected AuthenticationProvider demoUserAuthenticationProvider() throws Exception {

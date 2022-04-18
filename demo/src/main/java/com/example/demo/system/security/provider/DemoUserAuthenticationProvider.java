@@ -32,11 +32,13 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
 
         // =================================================== 示例 ===============================================
 
-        DemoUserAuthenticationToken token = (DemoUserAuthenticationToken) authentication;
-        log.info(" "+token.getDetails() +"  "+token.getPassword()) ;
+        /*DemoUserAuthenticationToken token = (DemoUserAuthenticationToken) authentication;*/
+        DemoJwtAuthenticationToken token = (DemoJwtAuthenticationToken) authentication;
+        DemoJwtUserLoginDTO demoJwtUserLoginDTO = (DemoJwtUserLoginDTO)token.getPrincipal() ;
+        log.info(" "+token.getDetails() +"  "+demoJwtUserLoginDTO.getUsername()) ;
 
         // 校验账号密码是否正确，同时返回用户信息
-        DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(token.getUsername(), token.getPassword());
+        DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(demoJwtUserLoginDTO.getUsername(), demoJwtUserLoginDTO.getPassword());
         if(userInfo == null){
             log.info("账号或者密码不正确.................") ;
             throw new DemoAuthenticationException(" 没有权限访问 ...  ") ;

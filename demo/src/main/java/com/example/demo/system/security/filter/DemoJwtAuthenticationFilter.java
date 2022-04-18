@@ -5,6 +5,7 @@ import com.addmp.security.filter.JwtAuthenticationFilter;
 import com.addmp.security.token.JwtAuthenticationToken;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +42,13 @@ public class DemoJwtAuthenticationFilter extends JwtAuthenticationFilter {
             String token = getJwtToken(request);
             log.info("start verify token= " + token );
             if (StringUtils.isNotBlank(token)) {
-                JwtAuthenticationToken authToken = new JwtAuthenticationToken(JWT.decode(token));
+                // DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(JWT.decode(token));
                 //对token进行解析，解析出来之后再去验证解析出来
-                DemoUserAuthenticationToken demoUserAuthenticationToken = new DemoUserAuthenticationToken(null,"jun","12561");
+                DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561ss") ;
+                DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,JWT.decode(token),null);
                 log.info("decode token= " + token );
-                // authResult = this.getAuthenticationManager().authenticate(authToken);
-                authResult = this.getAuthenticationManager().authenticate(demoUserAuthenticationToken);
+                authResult = this.getAuthenticationManager().authenticate(authToken);
+                //authResult = this.getAuthenticationManager().authenticate(demoUserAuthenticationToken);
             } else {
                 failed = LoginAuthenticationException.JWT_IS_EMPTY;
             }

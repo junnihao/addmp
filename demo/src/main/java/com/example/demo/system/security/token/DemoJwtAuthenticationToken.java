@@ -7,6 +7,7 @@ import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class DemoJwtAuthenticationToken extends JwtAuthenticationToken {
 
@@ -15,6 +16,10 @@ public class DemoJwtAuthenticationToken extends JwtAuthenticationToken {
     public DemoJwtAuthenticationToken(DemoJwtUserLoginDTO demoJwtUserLoginDTO, DecodedJWT token, Collection<? extends GrantedAuthority> authorities) {
         super(demoJwtUserLoginDTO,token,authorities);
         this.demoJwtUserLoginDTO = demoJwtUserLoginDTO ;
+    }
+
+    public DemoJwtAuthenticationToken(DecodedJWT token) {
+        super(token);
     }
 
     @Override

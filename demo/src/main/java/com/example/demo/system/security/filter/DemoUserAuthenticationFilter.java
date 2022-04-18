@@ -2,12 +2,14 @@ package com.example.demo.system.security.filter;
 
 import com.addmp.security.filter.UserAuthenticationFilter;
 import com.addmp.security.request.UserLoginRequest;
+import com.addmp.security.token.JwtAuthenticationToken;
 import com.addmp.security.token.UserAuthenticationToken;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.system.entity.User;
 import com.example.demo.system.parameter.UserLoginParameter;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.exception.DemoAuthenticationException;
+import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
 import com.example.demo.system.util.ApplicationUtil;
@@ -39,7 +41,6 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
         // 2.手机短信验证码登录：这里主要验证短信验证码的正确性，然后组装Token传给Provider进行下一步认证，如果短信验证码错误直接抛异常
         // 3.账号密码图形验证码登录：这里主要验证图形验证码的正确性，然后组装Token传给Provider进行下一步认证，如果图形验证码错误直接抛异常
         // ...
-        // =================================================== 示例 ===============================================
 
         //从数据库校验用户名和密码的真确性
         String body = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
@@ -63,15 +64,19 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
             return null ;
         }*/
         if (user == null) {
-            log.info("用户名或者密码不正确,返回错误信息 ");
-            throw new DemoAuthenticationException("用户名或者密码不正确");
+            //log.info("用户名或者密码不正确,返回错误信息 ");
+            //throw new DemoAuthenticationException("用户名或者密码不正确");
         }
-        log.info("find user id is :"+user.getUserName()+ "  and id is : " + user.getId()) ;
+        //log.info("find user id is :"+user.getUserName()+ "  and id is : " + user.getId()) ;
         // TODO 这里验证图形验证码 verifyCode 是否正确
-        DemoUserAuthenticationToken token = new DemoUserAuthenticationToken(
-				null, username, password);
+        /*DemoUserAuthenticationToken token = new DemoUserAuthenticationToken(
+				null, username, password); */
+
+        DemoJwtUserLoginDTO demoJwtUserLoginDTO = new DemoJwtUserLoginDTO(username,password);
+        DemoJwtAuthenticationToken demoJwtAuthenticationToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,null,null);
         log.info(" step1..... ") ;
         // 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
-        return this.getAuthenticationManager().authenticate(token);
+        // return this.getAuthenticationManager().authenticate(token);
+        return this.getAuthenticationManager().authenticate(demoJwtAuthenticationToken);
     }
 }
