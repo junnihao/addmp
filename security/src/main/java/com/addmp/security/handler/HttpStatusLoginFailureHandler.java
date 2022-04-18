@@ -37,7 +37,7 @@ public class HttpStatusLoginFailureHandler implements AuthenticationFailureHandl
 			LoginAuthenticationException e = (LoginAuthenticationException) exception;
 			response.getWriter().print(e.toJSONString());
 		} else {
-			response.getWriter().print("{\"msg\": \"" + exception.getMessage() + "\"}");
+			response.getWriter().print("{\"msgxx\": \"" + exception.getMessage() + "\"}");
 		}
 
 		log.error(exception.getMessage());

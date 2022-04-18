@@ -54,9 +54,11 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 		String token = ((HttpServletRequest) request).getHeader("tokenName") ;
 		/*如果请求中不带token，则走登录流程*/
 		if (token == null) {
+			log.info("token is null ....");
 			super.doFilter(request,response,chain);
 		}else{
 			//如果已经有了 token，说明已经登录了，则走下一个filter
+			log.info("token is not null ....  = " + token);
 			chain.doFilter(request,response);
 		}
 		//chain.doFilter(request,response);

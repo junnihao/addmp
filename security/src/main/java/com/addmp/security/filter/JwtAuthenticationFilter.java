@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.addmp.security.token.JwtAuthenticationToken;
 import com.addmp.security.exception.LoginAuthenticationException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -33,6 +34,7 @@ import java.util.List;
  * @author HuaDong
  * @since 2021/4/26 21:22
  */
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
 	private String tokenName;
@@ -64,13 +66,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	}
 
 	protected String getJwtToken(HttpServletRequest request) {
-		return request.getHeader(tokenName);
+		log.info("tokenName =" + tokenName) ;
+		return request.getHeader(tokenName) ;
 	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-
+        log.info("start verify ......................................");
 		// 是否是白名单URL
 		if (permissiveRequest(request)) {
 			filterChain.doFilter(request, response);
@@ -81,8 +84,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 		AuthenticationException failed = null;
 		try {
 			String token = getJwtToken(request);
+			log.info("start verify token= " + token );
 			if (StringUtils.isNotBlank(token)) {
 				JwtAuthenticationToken authToken = new JwtAuthenticationToken(JWT.decode(token));
+				log.info("decode token= " + token );
 				authResult = this.getAuthenticationManager().authenticate(authToken);
 			} else {
 				failed = LoginAuthenticationException.JWT_IS_EMPTY;
@@ -126,6 +131,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	protected void successfulAuthentication(HttpServletRequest request,
 											HttpServletResponse response, FilterChain chain, Authentication authResult)
 			throws IOException, ServletException {
+		log.info("step 5-------------------------------------------------------") ;
 		SecurityContextHolder.getContext().setAuthentication(authResult);
 		successHandler.onAuthenticationSuccess(request, response, authResult);
 	}

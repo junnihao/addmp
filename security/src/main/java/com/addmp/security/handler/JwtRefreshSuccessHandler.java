@@ -4,6 +4,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.addmp.security.token.JwtAuthenticationToken;
 import com.addmp.security.config.SecurityConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -21,6 +22,7 @@ import java.util.Date;
  * @author HuaDong
  * @since 2021/4/26 21:36
  */
+@Slf4j
 public class JwtRefreshSuccessHandler implements AuthenticationSuccessHandler{
 
 	private SecurityConfig securityConfig;
@@ -32,9 +34,10 @@ public class JwtRefreshSuccessHandler implements AuthenticationSuccessHandler{
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 										Authentication authentication) throws IOException, ServletException {
-
+        log.info("token verify success .....") ;
 		DecodedJWT jwt = ((JwtAuthenticationToken) authentication).getToken();
-		boolean shouldRefresh = shouldTokenRefresh(jwt.getIssuedAt());
+		// boolean shouldRefresh = shouldTokenRefresh(jwt.getIssuedAt());
+		boolean shouldRefresh = false ;
 
 		if (shouldRefresh) {
 			Algorithm algorithm = Algorithm.HMAC256(securityConfig.getTokenEncryptSalt());

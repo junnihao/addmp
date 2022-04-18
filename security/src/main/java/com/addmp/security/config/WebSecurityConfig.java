@@ -39,8 +39,11 @@ import java.util.Collections;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	//@Autowired
+	//private SecurityConfig securityConfig;
+
 	@Autowired
-	private SecurityConfig securityConfig;
+	protected SecurityConfig securityConfig;
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -64,9 +67,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
 				.antMatchers("/buyer/**").hasRole("BUYER")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
-				.anyRequest().access("@rbacService.hasPermission(request, authentication)")
+				//.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问
-//              .anyRequest().denyAll()
+                //.anyRequest().denyAll()
+				.anyRequest()
+				.authenticated()
 				.and()
 				// 禁用跨站点伪造请求
 				.csrf().disable()
@@ -106,6 +111,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.securityContext().disable();
 
 		customizedSecurityConfig(http);
+		customizedJwtConfig(http);
 		//this.sentinelConfig();
 	}
 
@@ -118,11 +124,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// 提供给其他模块配置 security
 	}
 
+	protected void customizedJwtConfig(HttpSecurity http) throws Exception {
+		// 提供给其他模块配置 security
+	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		/*auth.authenticationProvider(userAuthenticationProvider())
-				.authenticationProvider(jwtAuthenticationProvider());*/
-		auth.authenticationProvider(userAuthenticationProvider());
+		auth.authenticationProvider(userAuthenticationProvider())
+				.authenticationProvider(jwtAuthenticationProvider());
+		// auth.authenticationProvider(userAuthenticationProvider());
 	}
 
 	@Bean

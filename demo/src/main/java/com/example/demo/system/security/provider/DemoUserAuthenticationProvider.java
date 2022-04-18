@@ -9,6 +9,7 @@ import com.addmp.security.token.UserAuthenticationToken;
 import com.example.demo.system.entity.User;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.dto.DemoUserInfoDTO;
+import com.example.demo.system.security.exception.DemoAuthenticationException;
 import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
@@ -32,10 +33,14 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
         // =================================================== 示例 ===============================================
 
         DemoUserAuthenticationToken token = (DemoUserAuthenticationToken) authentication;
-        log.info(" "+token.getUsername() +"  "+token.getPassword()) ;
+        log.info(" "+token.getDetails() +"  "+token.getPassword()) ;
 
         // 校验账号密码是否正确，同时返回用户信息
         DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(token.getUsername(), token.getPassword());
+        if(userInfo == null){
+            log.info("账号或者密码不正确.................") ;
+            throw new DemoAuthenticationException(" 没有权限访问 ...  ") ;
+        }
 
         // 查询用户角色，假设这里是从数据库中查询出的该用户角色
         String roleName = "ROLE_BUYER";

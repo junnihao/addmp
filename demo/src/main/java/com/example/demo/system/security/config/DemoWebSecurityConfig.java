@@ -2,6 +2,7 @@ package com.example.demo.system.security.config;
 import com.addmp.security.config.WebSecurityConfig;
 import com.addmp.security.config.SecurityConfig;
 import com.addmp.security.provider.UserAuthenticationProvider;
+import com.example.demo.system.security.provider.DemoJwtAuthenticationProvider;
 import com.example.demo.system.security.provider.DemoUserAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +26,20 @@ public class DemoWebSecurityConfig extends WebSecurityConfig{
     }
 
     @Override
+    protected void customizedJwtConfig(HttpSecurity http) throws Exception {
+        http.apply(new DemoJwtLoginConfigurer(securityConfig()));
+    }
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(demoUserAuthenticationProvider());
+        auth.authenticationProvider(demoUserAuthenticationProvider()).authenticationProvider(demoJwtAuthenticationProvider());
     }
 
     protected AuthenticationProvider demoUserAuthenticationProvider() throws Exception {
         return new DemoUserAuthenticationProvider();
+    }
+
+    protected AuthenticationProvider demoJwtAuthenticationProvider() throws Exception {
+        return new DemoJwtAuthenticationProvider(super.securityConfig);
     }
 }

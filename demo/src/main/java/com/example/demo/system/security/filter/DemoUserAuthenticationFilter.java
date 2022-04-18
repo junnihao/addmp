@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.system.entity.User;
 import com.example.demo.system.parameter.UserLoginParameter;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
+import com.example.demo.system.security.exception.DemoAuthenticationException;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
 import com.example.demo.system.util.ApplicationUtil;
@@ -53,12 +54,17 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
 		}
 
         User user = userService.findUser(username,password) ;
-        if (user == null) {
+		//如果校验不正确，不用在这里返回，只要抛出异常，就会在定义的授权失败的handler里面去处理
+        /*if (user == null) {
             log.info("用户名或者密码不正确,返回错误信息 ");
             response.setStatus(403);
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().append("{\"success\":false,\"message\":\"用户名或者密码不正确,请重新输入!\",\"data\":\"{}\"}");
             return null ;
+        }*/
+        if (user == null) {
+            log.info("用户名或者密码不正确,返回错误信息 ");
+            throw new DemoAuthenticationException("用户名或者密码不正确");
         }
         log.info("find user id is :"+user.getUserName()+ "  and id is : " + user.getId()) ;
         // TODO 这里验证图形验证码 verifyCode 是否正确

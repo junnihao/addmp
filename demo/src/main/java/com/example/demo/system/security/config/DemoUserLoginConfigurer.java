@@ -18,6 +18,7 @@ public class DemoUserLoginConfigurer extends UserLoginConfigurer {
 
     @Override
     protected UserAuthenticationFilter getUserAuthenticationFilter(){
+
         DemoUserAuthenticationFilter demoUserAuthenticationFilter = new DemoUserAuthenticationFilter();
         // 登录成功处理器
         demoUserAuthenticationFilter.setAuthenticationSuccessHandler(new DemoUserLoginSuccessHandler(securityConfig));

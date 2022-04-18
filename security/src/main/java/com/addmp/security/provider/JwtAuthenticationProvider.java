@@ -6,6 +6,7 @@ import com.addmp.security.token.JwtAuthenticationToken;
 import com.addmp.security.config.SecurityConfig;
 import com.addmp.security.dto.JwtUserLoginDTO;
 import com.addmp.security.exception.LoginAuthenticationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,7 @@ import java.util.Collections;
  * @author HuaDong
  * @since 2021/4/26 21:35
  */
+@Slf4j
 public class JwtAuthenticationProvider implements AuthenticationProvider{
 
 	private SecurityConfig securityConfig;
@@ -31,7 +33,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
+        log.info("...............................................why") ;
 		DecodedJWT jwt = ((JwtAuthenticationToken) authentication).getToken();
 		// 令牌过期
 		if(jwt.getExpiresAt().before(Calendar.getInstance().getTime())) {
