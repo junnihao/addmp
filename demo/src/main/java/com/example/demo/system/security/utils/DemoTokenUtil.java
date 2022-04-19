@@ -3,6 +3,8 @@ package com.example.demo.system.security.utils;
 import com.addmp.security.utils.TokenUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,6 +36,18 @@ public class DemoTokenUtil extends TokenUtil implements Serializable {
                 .withExpiresAt(expireDate)
                 .withIssuedAt(new Date())
                 .sign(algorithm);
+    }
+
+    public static String getUserName(String token){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("MEICLOUD1");
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT jwt = verifier.verify(token);
+            String username = jwt.getClaim("username").asString();
+            return username;
+        } catch (Exception e){
+            return null;
+        }
     }
 
 }

@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.exception.DemoAuthenticationException;
 import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
+import com.example.demo.system.security.utils.DemoTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -40,13 +41,15 @@ public class DemoJwtAuthenticationFilter extends JwtAuthenticationFilter {
         try {
             log.info("verify step 2: 从request中获取传递过来的token");
             String token = getJwtToken(request);
+            log.info("token from request = " + token) ;
+            log.info("get user name from token = " + DemoTokenUtil.getUserName(token)) ;
             if (StringUtils.isNotBlank(token)) {
                 //DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(JWT.decode(token));
                 log.info("verify step 3: 解析并组装token");
                 DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561") ;
                 DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,JWT.decode(token),null);
                 //加入校验逻辑，如果校验不成功(这里是模拟) 抛出异常
-                if(1 == 2){
+                if(!"jun".equals(DemoTokenUtil.getUserName(token))){
                     throw new DemoAuthenticationException(" token 格式不正确 ..");
                 }
                 log.info("verify step 4: 将组装好的token,校验登录用户名和密码的正确性");
