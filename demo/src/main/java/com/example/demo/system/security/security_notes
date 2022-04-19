@@ -15,7 +15,7 @@
      定义Filter及将Filter加入到 FilterChain（DemoUserAuthenticationFilter/DemoJwtAuthenticationFilter)
      配置了Filter处理成功和处理失败的handler
 
-4、DemoWebSecurityConfig -> protected void configure(AuthenticationManagerBuilder auth) throws Exception 定义了认证 provider
+4、DemoWebSecurityConfig -> protected void configure(AuthenticationManagerBuilder auth) throws Exception 定义了认证 provider 认证器
    auth.authenticationProvider(demoUserAuthenticationProvider()).authenticationProvider(demoJwtAuthenticationProvider());
 
 
