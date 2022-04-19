@@ -8,6 +8,7 @@ import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.dto.DemoUserInfoDTO;
 import com.example.demo.system.security.exception.DemoAuthenticationException;
 import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
+import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
 import com.example.demo.system.util.ApplicationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -22,26 +23,20 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
         // 这里认证成功返回之后会跑到成功处理器：UserLoginSuccessHandler
         // 只要整个认证（包括前面的校验）中有一个地方抛出异常都会调用失败处理器：HttpStatusLoginFailureHandler
 
-        DemoJwtAuthenticationToken token = (DemoJwtAuthenticationToken) authentication;
-        DemoJwtUserLoginDTO demoJwtUserLoginDTO = (DemoJwtUserLoginDTO)token.getPrincipal() ;
-        log.info("step5 从上一步传递进来的token中获取 用户登录信息: name=" +demoJwtUserLoginDTO.getUsername() +" password = "+ demoJwtUserLoginDTO.getPassword());
+        DemoUserAuthenticationToken token = (DemoUserAuthenticationToken) authentication;
+        log.info("step5 从上一步传递进来的token中获取 用户登录信息: name=" +token.getUserName() +" password = "+ token.getPassword());
 
         log.info("step6 从数据库中校验登录用户的用户名和密码的正确性.") ;
-        DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(demoJwtUserLoginDTO.getUsername(), demoJwtUserLoginDTO.getPassword());
+        DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(token.getUserName(), token.getPassword());
         if(userInfo == null){
             log.info("step6-1 如果用户名和密码户正确，则在这里抛出异常；") ;
             log.info("        如果DemoWebSecurityConfig 中configure(AuthenticationManagerBuilder auth) 只配置了一个AuthenticationProvider ，则进入到失败页面") ;
             log.info("        如果配置了多个AuthenticationProvider ，则进入到下一个AuthenticationProvider") ;
             throw new DemoAuthenticationException(" 用户名和密码不正确 ...  ") ;
         }
-
-        // 查询用户角色，假设这里是从数据库中查询出的该用户角色
-        String roleName = "ROLE_BUYER";
-
         // 组装并返回认证成功的 Token
-        DemoJwtUserLoginDTO jwtUserLoginDTO = new DemoJwtUserLoginDTO(userInfo.getUsername(), userInfo.getPassword());
         log.info("step7 从数据库中校验用户名和密码正确后,进入到登录成功处理逻辑") ;
-        return new DemoJwtAuthenticationToken(jwtUserLoginDTO, null, null);
+        return token ;
     }
 
     private DemoUserInfoDTO checkAndGetUserInfo(String username, String password) {
@@ -62,7 +57,7 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
      */
     @Override
     public boolean supports(Class<?> authentication) {
-        // return authentication.isAssignableFrom(UserAuthenticationToken.class);
-        return true;
+        return authentication.isAssignableFrom(DemoUserAuthenticationToken.class);
+        //return true;
     }
 }

@@ -1,4 +1,4 @@
-package com.addmp.security.util;
+package com.addmp.security.utils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

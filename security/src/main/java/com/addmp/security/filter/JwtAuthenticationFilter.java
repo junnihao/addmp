@@ -130,7 +130,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	protected void successfulAuthentication(HttpServletRequest request,
 											HttpServletResponse response, FilterChain chain, Authentication authResult)
 			throws IOException, ServletException {
-		log.info("step8 从数据库中校验用户名和密码正确后,进入到登录成功处理逻辑") ;
+		log.info("verify step5 校验token的合法性后，进入校验成功处理逻辑") ;
 		SecurityContextHolder.getContext().setAuthentication(authResult);
 		successHandler.onAuthenticationSuccess(request, response, authResult);
 	}

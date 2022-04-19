@@ -42,14 +42,12 @@ public class DemoJwtAuthenticationFilter extends JwtAuthenticationFilter {
             log.info("verify step 2: 从request中获取传递过来的token");
             String token = getJwtToken(request);
             if (StringUtils.isNotBlank(token)) {
-                // DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(JWT.decode(token));
+                //DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(JWT.decode(token));
                 log.info("verify step 3: 解析并组装token");
                 DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561") ;
                 DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,JWT.decode(token),null);
                 log.info("verify step 4: 将组装好的token,校验登录用户名和密码的正确性");
-                log.info("???????????????this.getAuthenticationManager().getClass() = ---> "+ this.getAuthenticationManager()) ;
                 authResult = this.getAuthenticationManager().authenticate(authToken);
-                //authResult = this.getAuthenticationManager().authenticate(demoUserAuthenticationToken);
             } else {
                 failed = LoginAuthenticationException.JWT_IS_EMPTY;
             }

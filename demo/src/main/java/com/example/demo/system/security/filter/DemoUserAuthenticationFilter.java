@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.system.parameter.UserLoginParameter;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
+import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -44,11 +45,10 @@ public class DemoUserAuthenticationFilter extends UserAuthenticationFilter {
 
         //将用户登录信息
         log.info("step3 将用户名和密码等登录信息组装成 ->JwtUserLoginDTO 对象 -> JwtAuthenticationToken,  ");
-        DemoJwtUserLoginDTO demoJwtUserLoginDTO = new DemoJwtUserLoginDTO(username,password);
-        DemoJwtAuthenticationToken demoJwtAuthenticationToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,null,null);
+        DemoUserAuthenticationToken demoUserAuthenticationToken = new DemoUserAuthenticationToken(null,username,password);
 
         // 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
-        log.info("step4 将JwtAuthenticationToken 传递给UserAuthenticationProvider 继续校验 ");
-        return this.getAuthenticationManager().authenticate(demoJwtAuthenticationToken);
+        log.info("step4 将DemoUserAuthenticationToken 传递给UserAuthenticationProvider 继续校验 ");
+        return this.getAuthenticationManager().authenticate(demoUserAuthenticationToken);
     }
 }

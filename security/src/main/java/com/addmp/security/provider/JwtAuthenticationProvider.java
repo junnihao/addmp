@@ -25,7 +25,7 @@ import java.util.Collections;
 @Slf4j
 public class JwtAuthenticationProvider implements AuthenticationProvider{
 
-	private SecurityConfig securityConfig;
+	protected SecurityConfig securityConfig;
 
 	public JwtAuthenticationProvider(SecurityConfig securityConfig) {
 		this.securityConfig = securityConfig;
@@ -56,8 +56,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 
 	@Override
 	public boolean supports(Class<?> authentication) {
-		//return authentication.isAssignableFrom(JwtAuthenticationToken.class);
-		return true ;
+		return authentication.isAssignableFrom(JwtAuthenticationToken.class);
+		// return true ;
 	}
 
 }

@@ -3,7 +3,8 @@ package com.example.demo.system.security.handler;
 import com.addmp.security.config.SecurityConfig;
 import com.addmp.security.handler.UserLoginSuccessHandler;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
+import com.example.demo.system.security.token.DemoUserAuthenticationToken;
+import com.example.demo.system.security.utils.DemoTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 
@@ -27,10 +28,12 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
         // 这里的逻辑是生成JWT令牌（很多公司也会用Session），将生成的JWT返回给前端
 		Date expiredDate = new Date(System.currentTimeMillis() + securityConfig.getTokenExpireTimeInSecond() * 1000);
 		Algorithm algorithm = Algorithm.HMAC256(securityConfig.getTokenEncryptSalt());
-        DemoJwtUserLoginDTO jwtUserLoginDTO = (DemoJwtUserLoginDTO) authentication.getPrincipal();
+
+        DemoUserAuthenticationToken demoUserAuthenticationToken = (DemoUserAuthenticationToken)authentication ;
+        DemoTokenUtil demoTokenUtil = new DemoTokenUtil(demoUserAuthenticationToken.getUserName(),demoUserAuthenticationToken.getPassword()) ;
 
         log.info("step8 产生token的逻辑" ) ;
-        String token = jwtUserLoginDTO.sign(algorithm, expiredDate);
+        String token = demoTokenUtil.sign(algorithm, expiredDate);
         log.info("step9 将token返回给请求方 token=" + token) ;
 
         //设置请求头，将JWT令牌以请求头的方式返回给前端
