@@ -1,0 +1,53 @@
+一、配置过程
+1、入口 ：DemoWebSecurityConfig extends WebSecurityConfig
+   DemoWebSecurityConfig 有@Configuration 注释，启动的时候 -> protected void configure(HttpSecurity http) throws Exception (继承自WebSecurityConfig)
+
+2、WebSecurityConfig ： configure(HttpSecurity http)
+   有以下两个方法：这两个方法被子类DemoWebSecurityConfi 重新，定义子类模块自己的 config
+   customizedSecurityConfig(http);
+   customizedJwtConfig(http);
+   -> http.apply(new DemoUserLoginConfigurer(securityConfig()));
+      http.apply(new DemoJwtLoginConfigurer(securityConfig()));
+
+3、 UserLoginConfigurer(DemoUserLoginConfigurer 的父类)
+   JwtLoginConfigurer(DemoJwtLoginConfigurer 的父类)
+   ->public void configure(B http) throws Exception
+     定义Filter及将Filter加入到 FilterChain（DemoUserAuthenticationFilter/DemoJwtAuthenticationFilter)
+     配置了Filter处理成功和处理失败的handler
+
+4、DemoWebSecurityConfig -> protected void configure(AuthenticationManagerBuilder auth) throws Exception 定义了认证 provider
+   auth.authenticationProvider(demoUserAuthenticationProvider()).authenticationProvider(demoJwtAuthenticationProvider());
+
+
+二、请求过程
+1、客户端请求
+
+2、执行 DemoUserAuthenticationFilter 的 doFilter(实际执行父类UserAuthenticationFilter 的doFilter)
+   如果请求带token,则进入校验token的逻辑
+   如果请求不带token，则进入登录逻辑
+
+3、例如不带token，会执行DemoUserAuthenticationFilter -> public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+    //将用户登录信息
+    log.info("step3 将用户名和密码等登录信息组装成 ->JwtUserLoginDTO 对象 -> JwtAuthenticationToken,  ");
+    DemoUserAuthenticationToken demoUserAuthenticationToken = new DemoUserAuthenticationToken(null,username,password);
+
+    // 这里进行下一步认证，会走到我们定义的 UserAuthenticationProvider 中
+    log.info("step4 将DemoUserAuthenticationToken 传递给UserAuthenticationProvider 继续校验 ");
+    return this.getAuthenticationManager().authenticate(demoUserAuthenticationToken);
+
+    因为this.getAuthenticationManager().authenticate(demoUserAuthenticationToken); 传递进去的是 DemoUserAuthenticationToken
+    而DemoUserAuthenticationProvider 中定义的是DemoUserAuthenticationToken.class
+     public boolean supports(Class<?> authentication) {
+            return authentication.isAssignableFrom(DemoUserAuthenticationToken.class);
+     }
+    所以请求就会被传递给DemoUserAuthenticationProvider  去校验
+
+    如果校验成功则转入 filter中定义的 处理成功处理逻辑
+    如果其中抛出异常则转入 filter中定义的 处理失败的逻辑
+
+之后整理token的生成及解析、及中间传递参数DTO等等的逻辑
+
+
+
+
+

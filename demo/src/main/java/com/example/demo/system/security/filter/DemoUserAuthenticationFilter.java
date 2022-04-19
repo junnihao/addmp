@@ -3,8 +3,6 @@ package com.example.demo.system.security.filter;
 import com.addmp.security.filter.UserAuthenticationFilter;
 import com.alibaba.fastjson.JSON;
 import com.example.demo.system.parameter.UserLoginParameter;
-import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
-import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
