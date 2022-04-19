@@ -73,7 +73,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-        log.info("start verify ......................................");
 		// 是否是白名单URL
 		if (permissiveRequest(request)) {
 			filterChain.doFilter(request, response);
@@ -131,7 +130,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 	protected void successfulAuthentication(HttpServletRequest request,
 											HttpServletResponse response, FilterChain chain, Authentication authResult)
 			throws IOException, ServletException {
-		log.info("step 5-------------------------------------------------------") ;
+		log.info("step8 从数据库中校验用户名和密码正确后,进入到登录成功处理逻辑") ;
 		SecurityContextHolder.getContext().setAuthentication(authResult);
 		successHandler.onAuthenticationSuccess(request, response, authResult);
 	}

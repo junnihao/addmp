@@ -35,9 +35,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         log.info("...............................................why") ;
 		DecodedJWT jwt = ((JwtAuthenticationToken) authentication).getToken();
-		if(1==1){
+		/*if(1==1){
 			throw  LoginAuthenticationException.JWT_EXPIRED ;
-		}
+		}*/
 		// 令牌过期
 		if(jwt.getExpiresAt().before(Calendar.getInstance().getTime())) {
 			throw LoginAuthenticationException.JWT_EXPIRED;

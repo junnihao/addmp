@@ -1,16 +1,13 @@
 package com.example.demo.system.security.config;
 import com.addmp.security.config.WebSecurityConfig;
 import com.addmp.security.config.SecurityConfig;
-import com.addmp.security.provider.UserAuthenticationProvider;
 import com.example.demo.system.security.provider.DemoJwtAuthenticationProvider;
 import com.example.demo.system.security.provider.DemoUserAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @Configuration
 public class DemoWebSecurityConfig extends WebSecurityConfig{

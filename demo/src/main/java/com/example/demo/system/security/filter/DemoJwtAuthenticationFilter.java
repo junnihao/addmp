@@ -29,7 +29,7 @@ public class DemoJwtAuthenticationFilter extends JwtAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        log.info("start verify ......................................");
+        log.info("verify step 1: 校验是否白名单");
         // 是否是白名单URL
         if (permissiveRequest(request)) {
             filterChain.doFilter(request, response);
@@ -39,14 +39,15 @@ public class DemoJwtAuthenticationFilter extends JwtAuthenticationFilter {
         Authentication authResult = null;
         AuthenticationException failed = null;
         try {
+            log.info("verify step 2: 从request中获取传递过来的token");
             String token = getJwtToken(request);
-            log.info("start verify token= " + token );
             if (StringUtils.isNotBlank(token)) {
                 // DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(JWT.decode(token));
-                //对token进行解析，解析出来之后再去验证解析出来
-                DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561ss") ;
+                log.info("verify step 3: 解析并组装token");
+                DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561") ;
                 DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,JWT.decode(token),null);
-                log.info("decode token= " + token );
+                log.info("verify step 4: 将组装好的token,校验登录用户名和密码的正确性");
+                log.info("???????????????this.getAuthenticationManager().getClass() = ---> "+ this.getAuthenticationManager()) ;
                 authResult = this.getAuthenticationManager().authenticate(authToken);
                 //authResult = this.getAuthenticationManager().authenticate(demoUserAuthenticationToken);
             } else {
