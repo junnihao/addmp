@@ -1,8 +1,8 @@
-package com.example.demo.java.io.file;
+package com.example.demo.utils;
 
 import java.util.*;
 
-public class MergeMap {
+public class MergeMapUtil {
     static HashMap<String, Object> tmpMap = null;
     //forEach 是无序的
     public static List<HashMap<String, Object>> merge(List<HashMap<String, Object>> sourceList, List<HashMap<String, Object>> mergeObjectList,Map emptyMap, String key) {

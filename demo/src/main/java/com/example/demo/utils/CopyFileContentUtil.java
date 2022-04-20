@@ -1,4 +1,4 @@
-package com.example.demo.java.io.file;
+package com.example.demo.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-public class CopyFileContent {
+public class CopyFileContentUtil {
    public static void writeToDat(String path) {
 		File file = new File(path);
 		try {

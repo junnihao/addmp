@@ -1,10 +1,9 @@
-package com.example.demo.java.io.file;
+package com.example.demo.utils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;

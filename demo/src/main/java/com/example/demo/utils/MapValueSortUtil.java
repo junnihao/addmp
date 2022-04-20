@@ -1,8 +1,8 @@
-package com.example.demo.java.io.file;
+package com.example.demo.utils;
 
 import java.util.*;
 
-public class Test7 {
+public class MapValueSortUtil {
     // Map的value值降序排序
     public static <K, V extends Comparable<? super V>> Map<K, V> sortDescend(Map<K, V> map) {
         List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
