@@ -63,8 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问
                 //.anyRequest().denyAll()
-				.anyRequest()
-				.authenticated()
+				.anyRequest().authenticated()
 				.and()
 				// 禁用跨站点伪造请求
 				.csrf().disable()

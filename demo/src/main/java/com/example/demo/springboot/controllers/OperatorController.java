@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/operator")
-public class operatorController {
+public class OperatorController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String testAutho() {
         return " it was operate by Operators ..";
