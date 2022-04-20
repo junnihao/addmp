@@ -36,8 +36,12 @@ public class DemoJwtAuthenticationProvider extends JwtAuthenticationProvider {
             // 校验令牌的合法性
             Algorithm algorithm = Algorithm.HMAC256(securityConfig.getTokenEncryptSalt());
             JwtUserLoginDTO loginResultDTO = JwtUserLoginDTO.fromDecodeJWT(jwt, algorithm);
+            //模拟用户的角色是
             return new JwtAuthenticationToken(loginResultDTO, jwt,
-                    Collections.singletonList(new SimpleGrantedAuthority(loginResultDTO.getRoleName())));
+                    Collections.singletonList(new SimpleGrantedAuthority("ROLE_OPERATORX")));
+
+            /*return new JwtAuthenticationToken(loginResultDTO, jwt,
+                    Collections.singletonList(new SimpleGrantedAuthority(loginResultDTO.getRoleName()))); */
         } catch (Exception e) {
             throw new BadCredentialsException("JWT token verify fail", e);
         }

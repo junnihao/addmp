@@ -48,6 +48,24 @@
 之后整理token的生成及解析、及中间传递参数DTO等等的逻辑
 
 
+三、访问控制
+1、首先是配置访问权限:所有这个/operator/ API的访问都需要OPERATOR 的权限访问
+   WebSecurityConfig->.antMatchers("/operator/**").hasRole("OPERATOR")
+
+2、当用户登录时，DemoUserAuthenticationProvider 模拟从数据库取出了登录用户的角色
+  String roleName = "ROLE_OPERATOR" ;
+  并在产生token的时候加入用户的角色
+
+3、当用户请求API时，会返回登录时产生的token，token中包含了用户角色
+
+4、在验证token成功后，DemoJwtAuthenticationProvider 会返回
+    return new JwtAuthenticationToken(loginResultDTO, jwt,
+                       Collections.singletonList(new SimpleGrantedAuthority("ROLE_OPERATOR")));
+
+5、可以模拟修改Collections.singletonList(new SimpleGrantedAuthority("ROLE_OPERATOR")) 传入的值，模拟角色改变，看看测试效果。
+
+   这种方式也可以采用注解的方式，
+
 
 
 

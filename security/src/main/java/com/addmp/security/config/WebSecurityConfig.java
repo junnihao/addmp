@@ -57,8 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(securityConfig.getPermitUrls()).permitAll()
 				// 匿名访问的URL，即不用登录也可以访问（比如广告接口）
 				//.antMatchers(securityConfig.getAnonymousUrls()).permitAll()
-				// 买家接口需要 “ROLE_BUYER” 角色权限才能访问
-				.antMatchers("/buyer/**").hasRole("BUYER")
+				// 操作员接口需要 “ROLE_OPERATOR” 角色权限才能访问
+				.antMatchers("/operator/**").hasRole("OPERATOR")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
 				//.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问

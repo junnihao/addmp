@@ -28,6 +28,11 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
 
         log.info("step6 从数据库中校验登录用户的用户名和密码的正确性.") ;
         DemoUserInfoDTO userInfo = this.checkAndGetUserInfo(token.getUserName(), token.getPassword());
+        /*模拟从数据库中取出了 登录用户的角色名 ,这里可以将角色名放到DTO对象中，在组装token时将登录用户的角色也组装到token中
+        * 当用户请求API时会带上token，解析token获取角色，并将角色用于组装 JwtAuthenticationToken，Spring会根据配置和用户角色名允许或限制资源的访问
+        * */
+        String roleName = "ROLE_OPERATOR" ;
+        log.info("user roleName = "+ roleName) ;
         if(userInfo == null){
             log.info("step6-1 如果用户名和密码户正确，则在这里抛出异常；") ;
             log.info("        如果DemoWebSecurityConfig 中configure(AuthenticationManagerBuilder auth) 只配置了一个AuthenticationProvider ，则进入到失败页面") ;
