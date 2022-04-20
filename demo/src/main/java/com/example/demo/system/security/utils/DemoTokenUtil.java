@@ -40,7 +40,7 @@ public class DemoTokenUtil extends TokenUtil implements Serializable {
 
     public static String getUserName(String token){
         try {
-            Algorithm algorithm = Algorithm.HMAC256("MEICLOUD1");
+            Algorithm algorithm = Algorithm.HMAC256("MEICLOUD");
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT jwt = verifier.verify(token);
             String username = jwt.getClaim("username").asString();
