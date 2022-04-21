@@ -11,15 +11,18 @@ import java.util.Date;
 public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
 
     public static final String FIELD_USERNAME = "username";
-    public static final String FIELD_PASSWORD = "roleName";
+    public static final String FIELD_PASSWORD = "password";
+    public static final String FIELD_ROLENAME = "rolename";
 
     private String username;
     private String password;
+    private String roleName;
 
-    public DemoJwtUserLoginDTO(String username,String password){
+    public DemoJwtUserLoginDTO(String username,String password,String roleName){
         super.setNickname(username);
         this.username = username ;
         this.password = password ;
+        this.roleName = roleName;
     }
 
     public String getUsername(){
@@ -37,6 +40,8 @@ public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
     public void setPassword(String password){
         this.password = password;
     }
+
+    public String getRoleName(){return this.roleName;}
     /**
      * 签名，生成JWT令牌
      *
@@ -48,9 +53,9 @@ public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
     public String sign(Algorithm algorithm, Date expireDate) {
         return JWT.create()
                 .withSubject("subject_" + username)
-                .withClaim(FIELD_USER_ID, username)
                 .withClaim(FIELD_USERNAME, username)
                 .withClaim(FIELD_PASSWORD, password)
+                .withClaim(FIELD_ROLENAME, roleName)
                 .withExpiresAt(expireDate)
                 .withIssuedAt(new Date())
                 .sign(algorithm);

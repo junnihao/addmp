@@ -1,8 +1,10 @@
 package com.example.demo.system.security.handler;
 
 import com.addmp.security.config.SecurityConfig;
+import com.addmp.security.dto.JwtUserLoginDTO;
 import com.addmp.security.handler.UserLoginSuccessHandler;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.security.utils.DemoTokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,12 +31,20 @@ public class DemoUserLoginSuccessHandler extends UserLoginSuccessHandler {
 		Date expiredDate = new Date(System.currentTimeMillis() + securityConfig.getTokenExpireTimeInSecond() * 1000);
 		Algorithm algorithm = Algorithm.HMAC256(securityConfig.getTokenEncryptSalt());
 
-        DemoUserAuthenticationToken demoUserAuthenticationToken = (DemoUserAuthenticationToken)authentication ;
+		/*生成和解析 token放在DTO对象中*/
+        /*DemoUserAuthenticationToken demoUserAuthenticationToken = (DemoUserAuthenticationToken)authentication ;
         DemoTokenUtil demoTokenUtil = new DemoTokenUtil(demoUserAuthenticationToken.getUserName(),demoUserAuthenticationToken.getPassword()) ;
 
         log.info("step8 产生token的逻辑" ) ;
         String token = demoTokenUtil.sign(algorithm, expiredDate);
+        log.info("step9 将token返回给请求方 token=" + token) ;*/
+
+
+        DemoJwtUserLoginDTO  demoJwtUserLoginDTO = ( DemoJwtUserLoginDTO) authentication.getPrincipal();
+        log.info("step8 产生token的逻辑" ) ;
+        String token = demoJwtUserLoginDTO.sign(algorithm, expiredDate);
         log.info("step9 将token返回给请求方 token=" + token) ;
+
 
         //设置请求头，将JWT令牌以请求头的方式返回给前端
         response.addHeader(HEADER_SET_ACCESS_TOKEN, token);

@@ -1,13 +1,11 @@
 package com.example.demo.system.security.provider;
 
 import com.addmp.security.provider.UserAuthenticationProvider;
-import com.addmp.security.token.UserAuthenticationToken;
+import com.addmp.security.token.JwtAuthenticationToken;
 import com.example.demo.system.entity.User;
-import com.example.demo.system.security.config.DemoWebSecurityConfig;
 import com.example.demo.system.security.dto.DemoJwtUserLoginDTO;
 import com.example.demo.system.security.dto.DemoUserInfoDTO;
 import com.example.demo.system.security.exception.DemoAuthenticationException;
-import com.example.demo.system.security.token.DemoJwtAuthenticationToken;
 import com.example.demo.system.security.token.DemoUserAuthenticationToken;
 import com.example.demo.system.service.impl.UserService;
 import com.example.demo.system.util.ApplicationUtil;
@@ -41,7 +39,9 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
         }
         // 组装并返回认证成功的 Token
         log.info("step7 从数据库中校验用户名和密码正确后,进入到登录成功处理逻辑") ;
-        return token ;
+        DemoJwtUserLoginDTO demoJwtUserLoginDTO = new DemoJwtUserLoginDTO(token.getUserName(),token.getPassword(),roleName) ;
+
+        return new JwtAuthenticationToken(demoJwtUserLoginDTO, null, null);
     }
 
     private DemoUserInfoDTO checkAndGetUserInfo(String username, String password) {

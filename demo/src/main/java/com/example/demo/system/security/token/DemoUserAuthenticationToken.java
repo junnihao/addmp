@@ -45,6 +45,7 @@ public class DemoUserAuthenticationToken extends UserAuthenticationToken {
     public String getPassword(){
         return this.password ;
     }
+
     @Override
     public Object getCredentials() {
         return username;

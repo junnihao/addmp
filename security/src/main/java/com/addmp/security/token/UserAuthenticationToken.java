@@ -15,39 +15,17 @@ import java.util.Collection;
 @Data
 public class UserAuthenticationToken extends AbstractAuthenticationToken {
 
-    /**
-     * 登录账号/手机号
-     */
-    private String mobile;
-
-    /**
-     * 登录密码
-     */
-    private String password;
-
-    /**
-     * Creates a token with the supplied array of authorities.
-     *
-     * @param authorities the collection of <tt>GrantedAuthority</tt>s for the principal
-     *                    represented by this authentication object.
-     */
-    public UserAuthenticationToken(Collection<? extends GrantedAuthority> authorities, String mobile, String password) {
-        super(authorities);
-        this.mobile = mobile;
-        this.password = password;
-    }
-
     public UserAuthenticationToken(Collection<? extends GrantedAuthority> authorities){
         super(authorities);
     }
 
     @Override
     public Object getCredentials() {
-        return mobile;
+        return null;
     }
 
     @Override
     public Object getPrincipal() {
-        return mobile;
+        return null;
     }
 }

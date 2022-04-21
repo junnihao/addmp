@@ -46,7 +46,7 @@ public class DemoJwtAuthenticationFilter extends JwtAuthenticationFilter {
             if (StringUtils.isNotBlank(token)) {
                 //DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(JWT.decode(token));
                 log.info("verify step 3: 解析并组装token");
-                DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561") ;
+                DemoJwtUserLoginDTO demoJwtUserLoginDTO  = new DemoJwtUserLoginDTO("jun","12561","") ;
                 DemoJwtAuthenticationToken authToken = new DemoJwtAuthenticationToken(demoJwtUserLoginDTO,JWT.decode(token),null);
                 //加入校验逻辑，如果校验不成功(这里是模拟) 抛出异常
                 if(!"jun".equals(DemoTokenUtil.getUserName(token))){
