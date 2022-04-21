@@ -59,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				//.antMatchers(securityConfig.getAnonymousUrls()).permitAll()
 				// 操作员接口需要 “ROLE_OPERATOR” 角色权限才能访问
 				.antMatchers("/operator/**").hasRole("OPERATOR")
+				.antMatchers("/jdbcTemplates/**").hasRole("OPERATORX")
 				// 其他任何请求满足 rbacService.hasPermission() 方法返回true时，能够访问
 				//.anyRequest().access("@rbacService.hasPermission(request, authentication)")
 				// 其他URL一律拒绝访问

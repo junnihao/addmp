@@ -2,8 +2,12 @@ package com.example.demo.system.security.dto;
 
 import com.addmp.security.dto.JwtUserLoginDTO;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 
 import java.util.Date;
 
@@ -25,6 +29,8 @@ public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
         this.roleName = roleName;
     }
 
+    public DemoJwtUserLoginDTO(){}
+
     public String getUsername(){
         return this.username ;
     }
@@ -42,6 +48,8 @@ public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
     }
 
     public String getRoleName(){return this.roleName;}
+
+    public void setRoleName(String roleName){ this.roleName=roleName;}
     /**
      * 签名，生成JWT令牌
      *
@@ -59,5 +67,42 @@ public class DemoJwtUserLoginDTO extends JwtUserLoginDTO {
                 .withExpiresAt(expireDate)
                 .withIssuedAt(new Date())
                 .sign(algorithm);
+    }
+
+    /**
+     * 验证令牌有效性并返回用户对象
+     *
+     * @param jwt
+     * @param algorithm
+     * @return
+     * @throws
+     */
+    public static DemoJwtUserLoginDTO fromDecodeJWT(DecodedJWT jwt, Algorithm algorithm) {
+        log.info("verify logic is here........");
+        Assert.isTrue(StringUtils.isNotBlank(jwt.getSubject()), "Invalid Token");
+        Assert.isTrue(jwt.getClaim(DemoJwtUserLoginDTO.FIELD_USERNAME) != null, "Invalid Token");
+        Assert.isTrue(jwt.getClaim(DemoJwtUserLoginDTO.FIELD_PASSWORD) != null, "Invalid Token");
+        Assert.isTrue(jwt.getClaim(DemoJwtUserLoginDTO.FIELD_ROLENAME) != null, "Invalid Token");
+
+        String username = jwt.getClaim(DemoJwtUserLoginDTO.FIELD_USERNAME).asString();
+        String password = jwt.getClaim(DemoJwtUserLoginDTO.FIELD_PASSWORD).asString();
+        String roleName = jwt.getClaim(DemoJwtUserLoginDTO.FIELD_ROLENAME).asString();
+        log.info("username = " + username ) ;
+        log.info("password = " + password ) ;
+        log.info("roleName = " + roleName ) ;
+        JWTVerifier verifier = JWT.require(algorithm)
+                .withClaim(DemoJwtUserLoginDTO.FIELD_USERNAME, username)
+                .withClaim(DemoJwtUserLoginDTO.FIELD_PASSWORD,password )
+                .withClaim(DemoJwtUserLoginDTO.FIELD_ROLENAME, roleName)
+                .build();
+
+        verifier.verify(jwt.getToken());
+
+        DemoJwtUserLoginDTO jwtUserLoginDTO = new DemoJwtUserLoginDTO();
+        jwtUserLoginDTO.setUsername( username);
+        jwtUserLoginDTO.setPassword(password );
+        jwtUserLoginDTO.setRoleName(roleName);
+
+        return jwtUserLoginDTO;
     }
 }
