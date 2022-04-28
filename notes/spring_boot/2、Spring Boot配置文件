@@ -1,0 +1,14 @@
+1、可以将 application.properties 属性直接写入到目标
+2、将 application.properties 配置的属性 写入到定义的 bean,再将bean注入到需要的目标类
+3、将 磁盘属性文件路径 定义在application.properties中，然后将属性写入到bean中
+4、将 classpath中的属性文件 定义在application.properties中，然后将属性写入到bean中
+
+5、配置多个properties文件
+
+
+post/get/
+一般查询服务的时候用get，向后台提交数据时用post，如注册等等。这个说白了就是http里面get和post的差别了，post安全点，提交的数据多点，数据是放在http头信息里面的，get的参数是在URL后面的。
+
+请求方式
+https://blog.csdn.net/qq_41411324/article/details/111253250
+

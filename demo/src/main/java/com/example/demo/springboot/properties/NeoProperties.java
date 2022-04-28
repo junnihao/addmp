@@ -23,6 +23,7 @@ POJO(Plain Ordinary Java Object)是简单的Java对象，实际就是普通JavaB
    另外，通常 Java Bean 还要实现 Serializable 接口用于实现 Bean 的持久性。 Java Bean 是不能被跨进程访问的。JavaBean是一种组件技术。
  */
 
+// @Component(value = "NeoProperties")等同于 \<bean id = "NeoProperties" class="com.example.demo.springboot.properties.NeoProperties" />
 @Component(value = "NeoProperties") //只有一个参数 value
 /*@Scope(scopeName = "prototype")
   bean的作用域

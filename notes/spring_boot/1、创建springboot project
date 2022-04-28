@@ -1,0 +1,55 @@
+https://blog.csdn.net/forezp/article/details/70341651
+1、创建过程
+Idea-> new Project ->Spring Initializr ->填写group、artifact ->钩上web(开启web功能）->点下一步就行了
+
+2、目录结构
+- src
+	-main
+		-java
+			-package
+				-SpringbootApplication
+		-resouces
+			- statics
+			- templates
+			- application.yml
+	-test
+- pom
+
+
+3、文件
+pom文件为基本的依赖管理文件
+resouces 资源文件
+statics 静态资源
+templates 模板资源
+application.yml 配置文件
+SpringbootApplication程序的入口。
+
+
+
+4、启动springboot 方式
+cd到项目主目录:
+mvn clean
+mvn package  编译项目的jar
+       ------mvn spring-boot: run 启动
+cd 到target目录，java -jar 项目.jar
+
+
+5、原理性的内容
+能启动，spring boot注入了很多bean
+    通过这段代码，可以看到输出了哪些bean
+    @Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+
+			System.out.println("Let's inspect the beans provided by Spring Boot:");
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+
+		};
+	}
+
+
