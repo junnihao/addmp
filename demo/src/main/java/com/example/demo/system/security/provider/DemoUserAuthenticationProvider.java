@@ -62,6 +62,7 @@ public class DemoUserAuthenticationProvider extends UserAuthenticationProvider {
      */
     @Override
     public boolean supports(Class<?> authentication) {
+        /* 只校验这一个类型的token, 只要不返回异常信息,则就进入到校验成功的处理逻辑*/
         return authentication.isAssignableFrom(DemoUserAuthenticationToken.class);
         //return true;
     }
