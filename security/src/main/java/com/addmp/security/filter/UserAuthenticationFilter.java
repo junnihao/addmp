@@ -39,6 +39,7 @@ public class UserAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		String method = ((HttpServletRequest) request).getMethod();
 		String token = ((HttpServletRequest) request).getHeader("tokenName") ;
+		log.info("token = " + token) ;
 		if (token == null) {
 			log.info("step 1: Filter拦截到请求，如果请求参数中不带token,走登录流程");
 			super.doFilter(request,response,chain);
